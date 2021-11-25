@@ -6,5 +6,5 @@ ADD pom.xml $HOME
 RUN ["/usr/local/bin/mvn-entrypoint.sh", "mvn", "verify", "clean", "--fail-never"]
 ADD . $HOME
 RUN ["mvn", "package"]
-EXPOSE 8080
+EXPOSE 8080 3307
 CMD ["java", "-jar", "./target/mysql-spring-0.0.7-SNAPSHOT.jar"]

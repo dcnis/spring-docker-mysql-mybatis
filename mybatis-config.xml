@@ -8,7 +8,7 @@
             <transactionManager type="JDBC"/>
             <dataSource type="POOLED">
                 <property name="driver" value="com.mysql.cj.jdbc.Driver"/>
-                <property name="url" value="jdbc:mysql://mysqldb:3306/ig_clone"/>
+                <property name="url" value="jdbc:mysql://mysqldb:3306/learn_german"/>
                 <property name="username" value="root"/>
                 <property name="password" value="secret"/>
             </dataSource>

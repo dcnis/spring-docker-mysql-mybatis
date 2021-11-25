@@ -4,3 +4,9 @@ management.endpoints.web.exposure.include: "*"
 #mybatis.type-aliases-package: "de.schmidtdennis.mysqlspring"
 #Mapper.xml location
 mybatis.mapper-locations: "classpath*:**/mybatisMapper/*Mapper.xml"
+
+spring:
+  redis:
+    host: "redis"
+    port: 6379
+

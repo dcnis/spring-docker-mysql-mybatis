@@ -3,6 +3,7 @@ version: "3.8"
 services:
   mysqldb:
     image: mysql:latest
+    container_name: mysql
     restart: unless-stopped
     environment:
       - MYSQL_ROOT_PASSWORD=secret
@@ -11,9 +12,15 @@ services:
       - "3307:3306"
     volumes:
       - db:/var/lib/mysql
+  redis:
+    image: "redis:alpine"
+    container_name: redis
+    ports:
+      - "6379:6379"
   app:
     depends_on:
       - mysqldb
+      - redis
     container_name: spring_boot_app
     build:
       dockerfile: Dockerfile
@@ -26,7 +33,9 @@ services:
             "spring.datasource.password" : "secret",
             "spring.jpa.properties.hibernate.dialect" : "org.hibernate.dialect.MySQL5InnoDBDialect",
             "spring.datasource.driver-class-name" : "com.mysql.cj.jdbc.Driver",
-            "spring.jpa.hibernate.ddl-auto" : "update"
+            "spring.jpa.hibernate.ddl-auto" : "update",
+            "spring.redis.host" : "redis",
+            "spring.redis.port" : "6379"
           }'
     volumes:
       - .m2:/root/.m2

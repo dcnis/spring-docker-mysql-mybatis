@@ -1,5 +1,5 @@
 # Spring Docker MySQL MyBatis
-A simple Java application showing the usage of Spring Boot, Docker, MySQL and MyBatis.
+An simple Java application showing the usage of Spring Boot, Docker, MySQL and MyBatis.
 
 ## Description
 

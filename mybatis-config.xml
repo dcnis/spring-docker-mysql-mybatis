@@ -8,7 +8,7 @@
             <transactionManager type="JDBC"/>
             <dataSource type="POOLED">
                 <property name="driver" value="com.mysql.cj.jdbc.Driver"/>
-                <property name="url" value="jdbc:mysql://mysqldb:3306/learn_german"/>
+                <property name="url" value="jdbc:mysql://mysqldb:3306/popup_chinese"/>
                 <property name="username" value="root"/>
                 <property name="password" value="secret"/>
             </dataSource>

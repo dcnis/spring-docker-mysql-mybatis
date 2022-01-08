@@ -1,8 +1,8 @@
-DROP DATABASE IF EXISTS learn_german;
+DROP DATABASE IF EXISTS popup_chinese;
 
-CREATE DATABASE learn_german;
+CREATE DATABASE popup_chinese;
 
-USE learn_german;
+USE popup_chinese;
 
 CREATE TABLE Users (
     id INTEGER AUTO_INCREMENT PRIMARY KEY,

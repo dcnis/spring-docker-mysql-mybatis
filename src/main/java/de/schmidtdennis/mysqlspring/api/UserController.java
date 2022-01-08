@@ -24,4 +24,10 @@ public class UserController {
         return userMapper.getAllUser();
     }
 
+    @DeleteMapping("user/delete/{userId}")
+    public String deleteUser(@PathVariable("userId") int userId){
+        userMapper.deleteUser(userId);
+        return "User " + userId + " deleted.";
+    }
+
 }

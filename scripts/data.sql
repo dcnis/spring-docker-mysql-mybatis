@@ -1,7 +1,7 @@
 INSERT INTO Users (first_name, last_name, email) VALUES ("Dennis", "Schmidt", "bgk.dennis@yahoo.de");
 INSERT INTO Users (first_name, last_name, email) VALUES ("Antiqa", "Masito", "antiqa.masito@yahoo.de");
 INSERT INTO Users (first_name, last_name, email) VALUES ("Andreas", "Ruppel", "andreas.ruppel@yahoo.de");
-INSERT INTO Users (first_name, last_name, email) VALUES ("你好", "ä", "elena.fencel@yahoo.de");
+INSERT INTO Users (first_name, last_name, email) VALUES ("你好", "Älena", "elena.fencel@yahoo.de");
 
 INSERT INTO AddressTypes (name) VALUES ("Invoice address");
 INSERT INTO AddressTypes (name) VALUES ("Delivery address");

@@ -14,5 +14,9 @@
         SELECT * FROM Users;
     </select>
 
+    <delete id="deleteUser" parameterType="int">
+        DELETE FROM Users WHERE Users.id=#{userId}
+    </delete>
+
 </mapper>
 

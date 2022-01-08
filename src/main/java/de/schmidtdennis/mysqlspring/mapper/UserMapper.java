@@ -15,4 +15,5 @@ public interface UserMapper {
     @Insert("INSERT into Users (first_name, last_name, email) VALUES (#{firstName}, #{lastName}, #{email})")
     void addUser(@Param("firstName") String firstName, @Param("lastName") String lastName, @Param("email") String email);
 
+    void deleteUser(int userId);
 }

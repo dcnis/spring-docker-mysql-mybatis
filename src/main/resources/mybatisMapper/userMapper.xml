@@ -5,12 +5,13 @@
 
     <resultMap id="usersResult" type = "de.schmidtdennis.mysqlspring.model.User">
         <result property = "id" column = "id"/>
-        <result property = "name" column = "name"/>
+        <result property = "firstName" column = "first_name"/>
+        <result property = "lastName" column = "last_name"/>
         <result property = "email" column = "email"/>
     </resultMap>
 
     <select id = "getAllUser" resultMap = "usersResult">
-        SELECT * FROM users;
+        SELECT * FROM Users;
     </select>
 
 </mapper>

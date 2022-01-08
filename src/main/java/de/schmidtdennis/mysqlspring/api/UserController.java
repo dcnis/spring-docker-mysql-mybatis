@@ -18,13 +18,13 @@ public class UserController {
     private DatabaseMapper databaseMapper;
 
 
-    @PostMapping(value = "/add")
+    @PostMapping(value = "user/add")
     public String addUser(@RequestBody User user){
-        userMapper.addUser(user.getName(), user.getEmail());
+        userMapper.addUser(user.getFirstName(), user.getLastName(), user.getEmail());
         return "saved";
     }
 
-    @GetMapping("/getAll")
+    @GetMapping("user/getAll")
     public List<User> getAll(){
         return userMapper.getAllUser();
     }

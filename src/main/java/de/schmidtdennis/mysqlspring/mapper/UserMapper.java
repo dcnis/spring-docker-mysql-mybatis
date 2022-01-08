@@ -12,7 +12,7 @@ public interface UserMapper {
 
     List<User> getAllUser();
 
-    @Insert("INSERT into users (name, email) VALUES (#{userName}, #{userEmail})")
-    void addUser(@Param("userName") String userName, @Param("userEmail") String userEmail);
+    @Insert("INSERT into Users (first_name, last_name, email) VALUES (#{firstName}, #{lastName}, #{email})")
+    void addUser(@Param("firstName") String firstName, @Param("lastName") String lastName, @Param("email") String email);
 
 }

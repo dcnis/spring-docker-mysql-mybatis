@@ -1,5 +1,6 @@
 package de.schmidtdennis.mysqlspring.api;
 
+import de.schmidtdennis.mysqlspring.mapper.UserMapper;
 import de.schmidtdennis.mysqlspring.model.User;
 import de.schmidtdennis.mysqlspring.service.UserService;
 import org.junit.jupiter.api.Assertions;
@@ -17,6 +18,9 @@ class UserControllerTest {
 
     @Mock
     private UserService userService;
+
+    @Mock
+    private UserMapper userMapper;
 
     @InjectMocks
     private UserController testee;
@@ -73,4 +77,39 @@ class UserControllerTest {
         Mockito.verify(userService, Mockito.times(1)).updateUser(user);
     }
 
+    @Test
+    public void should_test_deleteUser(){
+        // GIVEN
+
+        // WHEN
+        String response = testee.deleteUser(1);
+
+        // THEN
+        Mockito.verify(userMapper, Mockito.times(1)).deleteUser(1);
+        assertThat(response).isEqualTo("User 1 deleted.");
+    }
+
+    @Test
+    public void should_test_getAll(){
+        // GIVEN
+
+        // WHEN
+        testee.getAll();
+
+        // THEN
+        Mockito.verify(userMapper, Mockito.times(1)).getAllUser();
+    }
+
+    @Test
+    public void should_test_addUser(){
+        // GIVEN
+        User user = new User(1, "first", "last", "email");
+
+        // WHEN
+        String response = testee.addUser(user);
+
+        // THEN
+        Mockito.verify(userMapper, Mockito.times(1)).addUser(user.getFirstName(), user.getLastName(), user.getEmail());
+        assertThat(response).isEqualTo("saved");
+    }
 }

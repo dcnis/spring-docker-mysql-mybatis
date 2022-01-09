@@ -1,0 +1,76 @@
+package de.schmidtdennis.mysqlspring.api;
+
+import de.schmidtdennis.mysqlspring.model.User;
+import de.schmidtdennis.mysqlspring.service.UserService;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.Mockito;
+import org.mockito.junit.jupiter.MockitoExtension;
+
+import static org.assertj.core.api.Assertions.assertThat;
+
+@ExtendWith(MockitoExtension.class)
+class UserControllerTest {
+
+    @Mock
+    private UserService userService;
+
+    @InjectMocks
+    private UserController testee;
+
+    @Test
+    public void should_call_userservice(){
+        // GIVEN
+        User user = new User(1, "first", "last", "email");
+
+        // WHEN
+        testee.updateUser(user);
+
+        // THEN
+        Mockito.verify(userService, Mockito.times(1)).updateUser(user);
+    }
+
+    @Test
+    public void should_throw_exception_if_id_is_missing(){
+        // GIVEN
+        User user = new User();
+        user.setFirstName("first");
+
+        // WHEN
+        IllegalArgumentException exception = Assertions.assertThrows(IllegalArgumentException.class, () -> testee.updateUser(user));
+
+        // THEN
+        assertThat(exception.getMessage()).isEqualTo("User-Id darf nicht null sein.");
+    }
+
+    @Test
+    public void should_throw_exception_if_updateFields_are_missing(){
+        // GIVEN
+        User user = new User();
+        user.setId(1);
+
+        // WHEN
+        IllegalArgumentException exception = Assertions.assertThrows(IllegalArgumentException.class, () -> testee.updateUser(user));
+
+        // THEN
+        assertThat(exception.getMessage()).isEqualTo("Es muss mindestens ein Feld geupdated werden.");
+    }
+
+    @Test
+    public void should_Not_throw_error_if_only_update_email(){
+        // GIVEN
+        User user = new User();
+        user.setId(1);
+        user.setEmail("email");
+
+        // WHEN
+        testee.updateUser(user);
+
+        // THEN
+        Mockito.verify(userService, Mockito.times(1)).updateUser(user);
+    }
+
+}

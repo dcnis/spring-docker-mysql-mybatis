@@ -4,6 +4,9 @@ import de.schmidtdennis.mysqlspring.model.User;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.UpdateProvider;
+import org.mybatis.dynamic.sql.update.render.UpdateStatementProvider;
+import org.mybatis.dynamic.sql.util.SqlProviderAdapter;
 
 import java.util.List;
 
@@ -16,4 +19,8 @@ public interface UserMapper {
     void addUser(@Param("firstName") String firstName, @Param("lastName") String lastName, @Param("email") String email);
 
     void deleteUser(int userId);
+
+    @UpdateProvider(type=SqlProviderAdapter.class, method="update")
+    int update(UpdateStatementProvider updateStatement);
+
 }

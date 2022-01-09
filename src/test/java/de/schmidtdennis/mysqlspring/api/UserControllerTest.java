@@ -50,18 +50,6 @@ class UserControllerTest {
         assertThat(exception.getMessage()).isEqualTo("User-Id darf nicht null sein.");
     }
 
-    @Test
-    public void should_throw_exception_if_updateFields_are_missing(){
-        // GIVEN
-        User user = new User();
-        user.setId(1);
-
-        // WHEN
-        IllegalArgumentException exception = Assertions.assertThrows(IllegalArgumentException.class, () -> testee.updateUser(user));
-
-        // THEN
-        assertThat(exception.getMessage()).isEqualTo("Es muss mindestens ein Feld geupdated werden.");
-    }
 
     @Test
     public void should_Not_throw_error_if_only_update_email(){
@@ -112,4 +100,18 @@ class UserControllerTest {
         Mockito.verify(userMapper, Mockito.times(1)).addUser(user.getFirstName(), user.getLastName(), user.getEmail());
         assertThat(response).isEqualTo("saved");
     }
+
+    @Test
+    public void should_throw_exception_if_updateFields_are_missing(){
+        // GIVEN
+        User myUser = new User();
+        myUser.setId(1);
+
+        // WHEN
+        IllegalArgumentException exception = Assertions.assertThrows(IllegalArgumentException.class, () -> testee.updateUser(myUser));
+
+        // THEN
+        assertThat(exception.getMessage()).isEqualTo("Es muss mindestens ein Feld geupdated werden.");
+    }
+
 }

@@ -33,4 +33,6 @@ public interface UserMapper {
     @Select("SELECT * FROM Users WHERE Users.email=#{email}")
     User getUserByEmail(@Param("email") String email);
 
+
+
 }

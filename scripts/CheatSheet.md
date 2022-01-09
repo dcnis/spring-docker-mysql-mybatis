@@ -1,27 +1,15 @@
 # Cheat Sheet
 A simple cheat sheet to remember some commands.
 
-## Execute MySQL Command from host
+## Acess MySQL-DB in docker container
 
 ```bash
 >> docker exec -it mysql mysql -p
 >> secret
 ```
 
-## Requirements
+## Access Redis in docker container
 
-The requirements for this project are the followings:
-
-- Java 11
-- Docker
-- Maven
-
-## Usage
-
-After downloading the source code you can run the application with a single command.
 ```bash
-docker compose up --build
+>> docker exec -it redis redis-cli
 ```
-
-## License
-[MIT](https://choosealicense.com/licenses/mit/)

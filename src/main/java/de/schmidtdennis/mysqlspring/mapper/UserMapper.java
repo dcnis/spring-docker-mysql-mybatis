@@ -1,10 +1,7 @@
 package de.schmidtdennis.mysqlspring.mapper;
 
 import de.schmidtdennis.mysqlspring.model.User;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.annotations.UpdateProvider;
+import org.apache.ibatis.annotations.*;
 import org.mybatis.dynamic.sql.update.render.UpdateStatementProvider;
 import org.mybatis.dynamic.sql.util.SqlProviderAdapter;
 
@@ -22,5 +19,18 @@ public interface UserMapper {
 
     @UpdateProvider(type=SqlProviderAdapter.class, method="update")
     int update(UpdateStatementProvider updateStatement);
+
+    @Results(id = "userResult", value = {
+            @Result(property = "id", column = "id"),
+            @Result(property = "firstName", column = "first_name"),
+            @Result(property = "lastName", column = "last_name"),
+            @Result(property = "email", column = "email")
+    })
+    @Select("SELECT * FROM Users WHERE Users.id=#{id}")
+    User getUserById(@Param("id") String id);
+
+    @ResultMap("userResult")
+    @Select("SELECT * FROM Users WHERE Users.email=#{email}")
+    User getUserByEmail(@Param("email") String email);
 
 }

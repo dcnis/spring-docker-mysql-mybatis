@@ -23,6 +23,17 @@ public class UserController {
         return "saved";
     }
 
+    @GetMapping("user")
+    public User getUser(@RequestParam(value = "id", required = false) String id, @RequestParam(value = "email", required = false) String email){
+        if(id != null){
+            return userMapper.getUserById(id);
+        } else if(email != null){
+            return userMapper.getUserByEmail(email);
+        }
+
+        return null;
+    }
+
     @GetMapping("user/getAll")
     public List<User> getAll() {
         return userMapper.getAllUser();

@@ -2,6 +2,8 @@ package de.schmidtdennis.mysqlspring.service;
 
 import de.schmidtdennis.mysqlspring.mapper.UserMapper;
 import de.schmidtdennis.mysqlspring.model.User;
+import de.schmidtdennis.mysqlspring.repository.RedisUserRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.mybatis.dynamic.sql.SqlColumn;
 import org.mybatis.dynamic.sql.SqlTable;
 import org.mybatis.dynamic.sql.render.RenderingStrategies;
@@ -14,10 +16,14 @@ import static org.mybatis.dynamic.sql.SqlBuilder.isEqualTo;
 import java.sql.JDBCType;
 
 @Service
+@Slf4j
 public class UserService {
 
     @Autowired
     private UserMapper userMapper;
+
+    @Autowired
+    private RedisUserRepository redisUserRepository;
 
     private static final SqlTable foo = SqlTable.of("Users");
     private static final SqlColumn<Integer> id = foo.column("id", JDBCType.INTEGER);
@@ -36,6 +42,34 @@ public class UserService {
                 .render(RenderingStrategies.MYBATIS3);
 
         return userMapper.update(updateStatement);
+    }
+
+    public User getUser(Integer id, String email){
+
+        if(id != null){
+            if(redisUserRepository.findUser(id) != null){
+                return redisUserRepository.findUser(id);
+            } else {
+                log.info("Get User from MySQL Database by id");
+                User user = userMapper.getUserById(id);
+                redisUserRepository.saveUser(user);
+                return user;
+            }
+        } else if(email != null){
+
+            Integer userId = redisUserRepository.getUserIdByEmail(email);
+
+            if(userId != null){
+                return redisUserRepository.findUser(userId);
+            } else {
+                log.info("Get User from MySQL Database by email");
+                User user = userMapper.getUserByEmail(email);
+                redisUserRepository.saveUserEmail(user.getId(), email);
+                return user;
+            }
+        }
+
+        return null;
     }
 
 

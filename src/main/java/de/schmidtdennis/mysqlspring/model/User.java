@@ -1,16 +1,19 @@
 package de.schmidtdennis.mysqlspring.model;
 
 import lombok.*;
+import org.springframework.data.redis.core.RedisHash;
 
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import java.io.Serializable;
 import java.lang.reflect.Field;
 
 @Getter
 @Setter
 @NoArgsConstructor
-public class User {
+@RedisHash(value = "User", timeToLive = 300)
+public class User implements Serializable {
 
     public User(Integer id, String firstName, String lastName, String email){
         this.id = id;

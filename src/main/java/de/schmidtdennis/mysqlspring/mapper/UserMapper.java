@@ -27,7 +27,7 @@ public interface UserMapper {
             @Result(property = "email", column = "email")
     })
     @Select("SELECT * FROM Users WHERE Users.id=#{id}")
-    User getUserById(@Param("id") String id);
+    User getUserById(@Param("id") Integer id);
 
     @ResultMap("userResult")
     @Select("SELECT * FROM Users WHERE Users.email=#{email}")

@@ -11,8 +11,7 @@ public class Lesson {
     private String title;
     private String discussion;
     private Difficulty difficulty;
-    private String thumbnail;
-    private String audio;
-    private List<UserLesson> userLessons;
+    private String thumbnailUrl;
+    private String audioUrl;
 
 }

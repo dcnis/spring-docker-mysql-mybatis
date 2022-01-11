@@ -16,6 +16,31 @@ CREATE TABLE AddressTypes (
     name VARCHAR(50) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL
 );
 
+CREATE TABLE Difficulties (
+    id INTEGER PRIMARY KEY,
+    description VARCHAR(255)
+);
+
+CREATE TABLE Lessons (
+    id INTEGER NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    title VARCHAR(255) NOT NULL,
+    discussion TEXT,
+    difficulty INTEGER NOT NULL,
+    thumbnail_url VARCHAR(255),
+    audio_url VARCHAR(255),
+    FOREIGN KEY (difficulty) REFERENCES Difficulties(id)
+);
+
+CREATE TABLE UserLessons (
+    id INTEGER NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    user_id INTEGER NOT NULL,
+    lesson_id INTEGER NOT NULL,
+    liked BOOLEAN DEFAULT FALSE,
+    last_seen DATETIME DEFAULT NULL,
+    FOREIGN KEY (user_id) REFERENCES Users(id),
+    FOREIGN KEY (lesson_id) REFERENCES Lessons(id)
+);
+
 CREATE TABLE Addresses (
     id INTEGER AUTO_INCREMENT PRIMARY KEY,
     street VARCHAR(255) NOT NULL,
@@ -27,21 +52,5 @@ CREATE TABLE Addresses (
     FOREIGN KEY (address_type) REFERENCES AddressTypes(id)
 ) CHARACTER SET utf8 COLLATE utf8_unicode_ci;
 
-CREATE TABLE Episodes (
-    id INTEGER AUTO_INCREMENT PRIMARY KEY,
-    title VARCHAR(255) NOT NULL,
-    description TEXT,
-    created TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    url VARCHAR(255)
-) CHARACTER SET utf8 COLLATE utf8_unicode_ci;
-
-CREATE TABLE LastWatched (
-    user_id INTEGER,
-    episode_id INTEGER,
-    last_viewed TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    PRIMARY KEY (user_id,episode_id),
-    FOREIGN KEY (user_id) REFERENCES Users(id),
-    FOREIGN KEY (episode_id) REFERENCES Episodes(id)
-);
 
 

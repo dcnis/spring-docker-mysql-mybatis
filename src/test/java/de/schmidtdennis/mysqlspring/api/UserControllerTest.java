@@ -90,7 +90,7 @@ class UserControllerTest {
         testee.getAll();
 
         // THEN
-        Mockito.verify(userMapper, Mockito.times(1)).getAllUser();
+        Mockito.verify(userService, Mockito.times(1)).getAllUser();
     }
 
     @Test

@@ -2,6 +2,7 @@ package de.schmidtdennis.mysqlspring.api;
 
 import de.schmidtdennis.mysqlspring.mapper.UserMapper;
 import de.schmidtdennis.mysqlspring.model.User;
+import de.schmidtdennis.mysqlspring.repository.RedisUserRepository;
 import de.schmidtdennis.mysqlspring.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -16,6 +17,9 @@ public class UserController {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private RedisUserRepository redisUserRepository;
 
     @PostMapping(value = "user/add")
     public String addUser(@RequestBody User user) {
@@ -36,6 +40,7 @@ public class UserController {
     @DeleteMapping("user/delete/{userId}")
     public String deleteUser(@PathVariable("userId") int userId) {
         userMapper.deleteUser(userId);
+        redisUserRepository.deleteUser(userId);
         return "User " + userId + " deleted.";
     }
 

@@ -2,6 +2,7 @@ package de.schmidtdennis.mysqlspring.service;
 
 import de.schmidtdennis.mysqlspring.mapper.UserMapper;
 import de.schmidtdennis.mysqlspring.model.User;
+import de.schmidtdennis.mysqlspring.repository.RedisUserRepository;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.*;
@@ -13,6 +14,9 @@ class UserServiceTest {
 
     @Mock
     private UserMapper userMapper;
+
+    @Mock
+    private RedisUserRepository redisUserRepository;
 
     @InjectMocks
     private UserService testee;
@@ -71,6 +75,36 @@ class UserServiceTest {
             boolean idOk = updateStatementProvider.getParameters().get("p2").equals(88);
             return statementOk && parametersOk && firstNameOk && idOk;
         }));
+    }
+
+    @Test
+    public void should_update_all_fields_of_user_in_redis(){
+        // GIVEN
+        User user = new User(1, "Dennis", "Schmidt", "bgk.dennis@yahoo.de");
+
+        Mockito.when(redisUserRepository.findUser(1)).thenReturn(user);
+
+        // WHEN
+        testee.updateUser(user);
+
+        // THEN
+        Mockito.verify(redisUserRepository, Mockito.times(1)).updateUser(user);
+    }
+
+    @Test
+    public void should_only_update_email_of_user_in_redis(){
+        // GIVEN
+        User user = new User();
+        user.setId(1);
+        user.setEmail("email@yahoo.de");
+
+        Mockito.when(redisUserRepository.findUser(1)).thenReturn(user);
+
+        // WHEN
+        testee.updateUser(user);
+
+        // THEN
+        Mockito.verify(redisUserRepository, Mockito.times(1)).updateUser(user);
     }
 
 }

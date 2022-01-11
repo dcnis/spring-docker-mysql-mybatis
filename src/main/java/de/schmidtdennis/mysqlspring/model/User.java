@@ -1,6 +1,7 @@
 package de.schmidtdennis.mysqlspring.model;
 
 import lombok.*;
+import lombok.experimental.FieldNameConstants;
 import org.springframework.data.redis.core.RedisHash;
 
 import javax.persistence.GeneratedValue;
@@ -13,6 +14,7 @@ import java.lang.reflect.Field;
 @Setter
 @NoArgsConstructor
 @RedisHash(value = "User", timeToLive = 300)
+@FieldNameConstants
 public class User implements Serializable {
 
     public User(Integer id, String firstName, String lastName, String email){

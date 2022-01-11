@@ -2,6 +2,7 @@ package de.schmidtdennis.mysqlspring.api;
 
 import de.schmidtdennis.mysqlspring.mapper.UserMapper;
 import de.schmidtdennis.mysqlspring.model.User;
+import de.schmidtdennis.mysqlspring.repository.RedisUserRepository;
 import de.schmidtdennis.mysqlspring.service.UserService;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -21,6 +22,9 @@ class UserControllerTest {
 
     @Mock
     private UserMapper userMapper;
+
+    @Mock
+    private RedisUserRepository redisUserRepository;
 
     @InjectMocks
     private UserController testee;
@@ -74,6 +78,7 @@ class UserControllerTest {
 
         // THEN
         Mockito.verify(userMapper, Mockito.times(1)).deleteUser(1);
+        Mockito.verify(redisUserRepository, Mockito.times(1)).deleteUser(1);
         assertThat(response).isEqualTo("User 1 deleted.");
     }
 

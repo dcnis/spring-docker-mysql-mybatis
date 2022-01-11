@@ -41,7 +41,27 @@ public class UserService {
                 .build()
                 .render(RenderingStrategies.MYBATIS3);
 
+        this.updateUserInRedis(user);
         return userMapper.update(updateStatement);
+    }
+
+    private void updateUserInRedis(User user) {
+        User redisUser = redisUserRepository.findUser(user.getId());
+        if(redisUser != null){
+
+            if(user.getFirstName() != null){
+                redisUser.setFirstName(user.getFirstName());
+            }
+            if(user.getLastName() != null){
+                redisUser.setLastName(user.getLastName());
+            }
+            if(user.getEmail() != null){
+                redisUser.setEmail(user.getEmail());
+            }
+
+            log.info("User in Redis geupdated");
+            redisUserRepository.updateUser(redisUser);
+        }
     }
 
     public User getUser(Integer id, String email){

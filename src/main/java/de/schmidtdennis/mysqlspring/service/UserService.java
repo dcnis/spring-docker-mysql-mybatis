@@ -14,6 +14,7 @@ import static org.mybatis.dynamic.sql.SqlBuilder.update;
 import static org.mybatis.dynamic.sql.SqlBuilder.isEqualTo;
 
 import java.sql.JDBCType;
+import java.util.List;
 
 @Service
 @Slf4j
@@ -93,4 +94,7 @@ public class UserService {
     }
 
 
+    public List<User> getAllUser() {
+        return userMapper.getAllUser();
+    }
 }

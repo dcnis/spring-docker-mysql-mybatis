@@ -24,6 +24,7 @@ public class UserController {
     @PostMapping(value = "user/add")
     public String addUser(@RequestBody User user) {
         userMapper.addUser(user.getFirstName(), user.getLastName(), user.getEmail());
+        redisUserRepository.saveUser(user);
         return "saved";
     }
 
@@ -34,7 +35,7 @@ public class UserController {
 
     @GetMapping("user/getAll")
     public List<User> getAll() {
-        return userMapper.getAllUser();
+        return userService.getAllUser();
     }
 
     @DeleteMapping("user/delete/{userId}")

@@ -15,27 +15,26 @@ public class RedisUserRepository {
     private RedisTemplate<String, Object> redisTemplate;
 
     @Autowired
-    private HashOperations<String, Integer, User> hashOps;
+    private HashOperations<String, Integer, User> hashOperationsUser;
 
     public static String USER_PREFIX = "User:";
 
 
     public void saveUser(User user){
         log.info("Save User to REDIS");
-        hashOps.put(USER_PREFIX, user.getId(), user);
+        hashOperationsUser.put(USER_PREFIX, user.getId(), user);
     }
 
     public void updateUser(User user){
-        hashOps.put(USER_PREFIX, user.getId(), user);
+        hashOperationsUser.put(USER_PREFIX, user.getId(), user);
     }
 
     public User findUser(int id){
-        log.info("Get User from REDIS");
-        return hashOps.get(USER_PREFIX, id);
+        return hashOperationsUser.get(USER_PREFIX, id);
     }
 
     public void deleteUser(int id){
-        hashOps.delete(USER_PREFIX, id);
+        hashOperationsUser.delete(USER_PREFIX, id);
     }
 
     public Integer getUserIdByEmail(String email){

@@ -26,15 +26,15 @@ public class UserService {
     @Autowired
     private RedisUserRepository redisUserRepository;
 
-    private static final SqlTable foo = SqlTable.of("Users");
-    private static final SqlColumn<Integer> id = foo.column("id", JDBCType.INTEGER);
-    private static final SqlColumn<String> firstName = foo.column("first_name", JDBCType.VARCHAR);
-    private static final SqlColumn<String> lastName = foo.column("last_name", JDBCType.VARCHAR);
-    private static final SqlColumn<String> email = foo.column("email", JDBCType.VARCHAR);
+    private static final SqlTable users = SqlTable.of("Users");
+    private static final SqlColumn<Integer> id = users.column("id", JDBCType.INTEGER);
+    private static final SqlColumn<String> firstName = users.column("first_name", JDBCType.VARCHAR);
+    private static final SqlColumn<String> lastName = users.column("last_name", JDBCType.VARCHAR);
+    private static final SqlColumn<String> email = users.column("email", JDBCType.VARCHAR);
 
     public int updateUser(User user){
 
-        UpdateStatementProvider updateStatement = update(foo)
+        UpdateStatementProvider updateStatement = update(users)
                 .set(firstName).equalToWhenPresent(user.getFirstName())
                 .set(lastName).equalToWhenPresent(user.getLastName())
                 .set(email).equalToWhenPresent(user.getEmail())
@@ -68,8 +68,10 @@ public class UserService {
     public User getUser(Integer id, String email){
 
         if(id != null){
-            if(redisUserRepository.findUser(id) != null){
-                return redisUserRepository.findUser(id);
+            User userFromRedis = redisUserRepository.findUser(id);
+            if(userFromRedis != null){
+                log.info("Return User {} from Redis", userFromRedis.getId());
+                return userFromRedis;
             } else {
                 log.info("Get User from MySQL Database by id");
                 User user = userMapper.getUserById(id);

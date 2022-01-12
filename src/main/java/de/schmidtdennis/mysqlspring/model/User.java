@@ -4,16 +4,13 @@ import lombok.*;
 import lombok.experimental.FieldNameConstants;
 import org.springframework.data.redis.core.RedisHash;
 
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import java.io.Serializable;
 import java.lang.reflect.Field;
 
 @Getter
 @Setter
 @NoArgsConstructor
-@RedisHash(value = "User", timeToLive = 300)
+@RedisHash(value = "User", timeToLive = 3600)
 @FieldNameConstants
 public class User implements Serializable {
 
@@ -24,8 +21,6 @@ public class User implements Serializable {
         this.email = email;
     }
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Integer id;
     private String firstName;
     private String lastName;

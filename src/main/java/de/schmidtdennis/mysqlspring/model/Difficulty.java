@@ -1,9 +1,13 @@
 package de.schmidtdennis.mysqlspring.model;
 
 import lombok.Getter;
+import org.springframework.data.redis.core.RedisHash;
+
+import java.io.Serializable;
 
 @Getter
-public class Difficulty {
+@RedisHash("Difficulty")
+public class Difficulty implements Serializable {
     private Integer id;
     private String description;
 }

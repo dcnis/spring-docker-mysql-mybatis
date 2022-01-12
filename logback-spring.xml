@@ -17,7 +17,7 @@
         <appender-ref ref="Console" />
     </root>
 
-    <!-- LOG "com.baeldung*" at TRACE level -->
+    <!-- LOG "de.schmidtdennis.mysqlspring" at DEBUG level -->
     <logger name="de.schmidtdennis.mysqlspring" level="debug" additivity="false">
         <appender-ref ref="Console" />
     </logger>

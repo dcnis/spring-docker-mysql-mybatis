@@ -10,3 +10,6 @@ spring:
     host: "redis"
     port: 6379
 
+
+logging:
+  config: file:logback-spring.xml

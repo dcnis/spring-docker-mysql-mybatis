@@ -25,10 +25,10 @@ CREATE TABLE Lessons (
     id INTEGER NOT NULL AUTO_INCREMENT PRIMARY KEY,
     title VARCHAR(255) NOT NULL,
     discussion TEXT,
-    difficulty INTEGER NOT NULL,
+    difficulty_id INTEGER NOT NULL,
     thumbnail_url VARCHAR(255),
     audio_url VARCHAR(255),
-    FOREIGN KEY (difficulty) REFERENCES Difficulties(id)
+    FOREIGN KEY (difficulty_id) REFERENCES Difficulties(id)
 );
 
 CREATE TABLE UserLessons (
@@ -36,7 +36,7 @@ CREATE TABLE UserLessons (
     user_id INTEGER NOT NULL,
     lesson_id INTEGER NOT NULL,
     liked BOOLEAN DEFAULT FALSE,
-    last_seen DATETIME DEFAULT NULL,
+    last_seen DATETIME DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (user_id) REFERENCES Users(id),
     FOREIGN KEY (lesson_id) REFERENCES Lessons(id)
 );

@@ -15,7 +15,7 @@
     </select>
 
     <delete id="deleteUser" parameterType="int">
-        DELETE FROM Users WHERE Users.id=#{userId}
+        DELETE FROM Users WHERE Users.id=#{userId};
     </delete>
 
 </mapper>

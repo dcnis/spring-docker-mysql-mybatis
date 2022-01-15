@@ -7,8 +7,8 @@ import java.time.LocalDateTime;
 @Getter
 public class UserLesson {
     private Integer id;
-    private User userId;
-    private Lesson lessonId;
-    private LocalDateTime lastSeen;
+    private User user;
+    private Lesson lesson;
     private boolean liked;
+    private LocalDateTime lastSeen;
 }

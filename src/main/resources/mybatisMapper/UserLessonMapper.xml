@@ -1,0 +1,53 @@
+<?xml version = "1.0" encoding = "UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace = "de.schmidtdennis.mysqlspring.mapper.UserLessonMapper">
+
+    <resultMap id="userLessonResult" type = "de.schmidtdennis.mysqlspring.model.UserLesson">
+        <result property = "id" column = "id"/>
+        <result property = "liked" column = "liked"/>
+        <result property = "lastSeen" column = "last_seen"/>
+        <association property="user" column="user_id" javaType="de.schmidtdennis.mysqlspring.model.User" select="selectUser"/>
+        <association property="lesson" column="lesson_id" javaType="de.schmidtdennis.mysqlspring.model.Lesson" select="selectLesson"/>
+    </resultMap>
+
+    <select id = "getUserLessonsByUserId" resultMap = "userLessonResult" parameterType="int">
+        SELECT * FROM UserLessons ul WHERE ul.user_id=#{userId};
+    </select>
+
+    <select id="getUserLessonByEmail" resultMap="userLessonResult" parameterType="String">
+        SELECT * FROM UserLessons ul
+        INNER JOIN Users u ON u.id=ul.user_id
+        WHERE u.email=#{email};
+    </select>
+
+    <resultMap id="userResult" type="de.schmidtdennis.mysqlspring.model.User">
+        <result property="id" column="id"/>
+        <result property="firstName" column="first_name"/>
+        <result property="lastName" column="last_name"/>
+        <result property="email" column="email"/>
+    </resultMap>
+    <select id="selectUser" resultMap="userResult" parameterType="int">
+        SELECT * FROM Users WHERE id=#{user_id}
+    </select>
+
+    <resultMap id="lessonResult" type="de.schmidtdennis.mysqlspring.model.Lesson">
+        <result property="id" column="id"/>
+        <result property="title" column="title"/>
+        <result property="discussion" column="discussion"/>
+        <result property="thumbnailUrl" column="thumbnail_url"/>
+        <result property="audioUrl" column="audio_url"/>
+        <association property="difficulty" column="difficulty_id" javaType="de.schmidtdennis.mysqlspring.model.Difficulty" select="selectDifficulty"/>
+    </resultMap>
+    <select id="selectLesson" resultMap="lessonResult" parameterType="int">
+        SELECT * FROM Lessons WHERE id=#{lesson_id}
+    </select>
+
+    <resultMap id="difficultyResult" type="de.schmidtdennis.mysqlspring.model.Difficulty">
+        <result property="id" column="id"/>
+        <result property="description" column="description"/>
+    </resultMap>
+    <select id="selectDifficulty" resultMap="difficultyResult" parameterType="int">
+        SELECT * FROM Difficulties WHERE id=#{difficulty_id};
+    </select>
+</mapper>

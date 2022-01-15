@@ -14,7 +14,7 @@ public interface LessonMapper {
             @Result(property = "id", column = "id"),
             @Result(property = "title", column = "title"),
             @Result(property = "discussion", column = "discussion"),
-            @Result(property = "difficulty", column = "difficulty", javaType = Difficulty.class, one=@One(select="getDifficulty")),
+            @Result(property = "difficulty", column = "difficulty_id", javaType = Difficulty.class, one=@One(select="getDifficulty")),
             @Result(property = "thumbnailUrl", column = "thumbnail_url"),
             @Result(property = "audioUrl", column = "audio_url")
     })

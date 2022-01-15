@@ -3,7 +3,7 @@ management.endpoints.web.exposure.include: "*"
 #mybatis entity scan packages
 #mybatis.type-aliases-package: "de.schmidtdennis.mysqlspring"
 #Mapper.xml location
-mybatis.mapper-locations: "classpath*:**/mybatisMapper/*Mapper.xml"
+mybatis.mapper-locations: "classpath*:de/schmidtdennis/mysqlspring/mapper/*.xml"
 
 spring:
   redis:

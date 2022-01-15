@@ -26,7 +26,7 @@ public interface LessonMapper {
             @Result(property = "id", column = "id"),
             @Result(property = "description", column = "description")
     })
-    Difficulty getDifficulty(String difficultyId);
+    Difficulty getDifficulty(int difficultyId);
 
     @Select("SELECT * FROM Lessons WHERE id=#{lessonId}")
     @ResultMap("lessonResult")

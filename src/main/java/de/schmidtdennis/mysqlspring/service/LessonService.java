@@ -12,8 +12,12 @@ import org.springframework.stereotype.Service;
 @Slf4j
 public class LessonService {
 
+    private final LessonMapper lessonMapper;
+
     @Autowired
-    private LessonMapper lessonMapper;
+    public LessonService(LessonMapper lessonMapper){
+        this.lessonMapper = lessonMapper;
+    }
 
     @Autowired
     private RedisLessonRepository redisLessonRepository;

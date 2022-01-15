@@ -12,14 +12,16 @@ import java.util.List;
 @RestController
 public class UserController {
 
-    @Autowired
-    private UserMapper userMapper;
+    private final UserMapper userMapper;
+    private final UserService userService;
+    private final RedisUserRepository redisUserRepository;
 
     @Autowired
-    private UserService userService;
-
-    @Autowired
-    private RedisUserRepository redisUserRepository;
+    public UserController(UserMapper userMapper, UserService userService, RedisUserRepository redisUserRepository){
+        this.userMapper = userMapper;
+        this.userService = userService;
+        this.redisUserRepository = redisUserRepository;
+    }
 
     @PostMapping(value = "user/add")
     public String addUser(@RequestBody User user) {

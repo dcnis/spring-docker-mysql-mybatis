@@ -10,21 +10,25 @@ import org.mybatis.dynamic.sql.render.RenderingStrategies;
 import org.mybatis.dynamic.sql.update.render.UpdateStatementProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import static org.mybatis.dynamic.sql.SqlBuilder.update;
-import static org.mybatis.dynamic.sql.SqlBuilder.isEqualTo;
 
 import java.sql.JDBCType;
 import java.util.List;
+
+import static org.mybatis.dynamic.sql.SqlBuilder.isEqualTo;
+import static org.mybatis.dynamic.sql.SqlBuilder.update;
 
 @Service
 @Slf4j
 public class UserService {
 
-    @Autowired
-    private UserMapper userMapper;
+    private final UserMapper userMapper;
+    private final RedisUserRepository redisUserRepository;
 
     @Autowired
-    private RedisUserRepository redisUserRepository;
+    public UserService(UserMapper userMapper, RedisUserRepository redisUserRepository){
+        this.userMapper = userMapper;
+        this.redisUserRepository = redisUserRepository;
+    }
 
     private static final SqlTable users = SqlTable.of("Users");
     private static final SqlColumn<Integer> id = users.column("id", JDBCType.INTEGER);

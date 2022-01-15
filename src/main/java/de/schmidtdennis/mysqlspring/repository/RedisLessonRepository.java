@@ -10,10 +10,13 @@ import org.springframework.stereotype.Repository;
 @Slf4j
 public class RedisLessonRepository {
 
-    @Autowired
-    private HashOperations<String, Integer, Lesson> hashOperationsLesson;
-
+    private final HashOperations<String, Integer, Lesson> hashOperationsLesson;
     public static String LESSON_PREFIX = "Lesson:";
+
+    @Autowired
+    public RedisLessonRepository(HashOperations<String, Integer, Lesson> hashOperationsLesson){
+        this.hashOperationsLesson = hashOperationsLesson;
+    }
 
     public void saveLesson(Lesson lesson){
         hashOperationsLesson.put(LESSON_PREFIX, lesson.getId(), lesson);

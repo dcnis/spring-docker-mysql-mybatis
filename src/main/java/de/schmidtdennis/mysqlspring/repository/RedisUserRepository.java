@@ -11,13 +11,15 @@ import org.springframework.stereotype.Repository;
 @Slf4j
 public class RedisUserRepository {
 
-    @Autowired
-    private RedisTemplate<String, Object> redisTemplate;
-
-    @Autowired
-    private HashOperations<String, Integer, User> hashOperationsUser;
-
+    private final RedisTemplate<String, Object> redisTemplate;
+    private final HashOperations<String, Integer, User> hashOperationsUser;
     public static String USER_PREFIX = "User:";
+
+    @Autowired
+    public RedisUserRepository(RedisTemplate<String, Object> redisTemplate, HashOperations<String, Integer, User> hashOperationsUser){
+        this.redisTemplate = redisTemplate;
+        this.hashOperationsUser = hashOperationsUser;
+    }
 
 
     public void saveUser(User user){

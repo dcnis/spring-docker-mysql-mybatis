@@ -13,11 +13,14 @@ import java.util.List;
 @RestController
 public class LessonController {
 
-    @Autowired
-    private LessonMapper lessonMapper;
+    private final LessonMapper lessonMapper;
+    private final LessonService lessonService;
 
     @Autowired
-    private LessonService lessonService;
+    public LessonController(LessonMapper lessonMapper, LessonService lessonService){
+        this.lessonMapper = lessonMapper;
+        this.lessonService = lessonService;
+    }
 
     @GetMapping("lesson/getAll")
     public List<Lesson> getAllLessons(){

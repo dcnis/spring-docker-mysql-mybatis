@@ -19,8 +19,8 @@ public class UserLessonController {
     }
 
     @GetMapping("userlessons")
-    public UserLessonResult getUserLessonsByUserId(@RequestParam(value = "userId", required = false) Integer userId,
-                                                   @RequestParam(value = "email", required = false) String email) {
+    public UserLessonResult getUserLessons(@RequestParam(value = "userId", required = false) Integer userId,
+                                           @RequestParam(value = "email", required = false) String email) {
 
         if (userId == null && email == null) throw new IllegalArgumentException("userId und email fehlen");
 

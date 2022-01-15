@@ -25,7 +25,7 @@ public class UserLessonService {
             List<UserLesson> userLessons = userLessonMapper.getUserLessonsByUserId(userId);
             return new UserLessonResult(userLessons.size(), userLessons);
         } else if(email != null){
-            List<UserLesson> userLessons = userLessonMapper.getUserLessonByEmail(email);
+            List<UserLesson> userLessons = userLessonMapper.getUserLessonsByEmail(email);
             return new UserLessonResult(userLessons.size(), userLessons);
         }
 

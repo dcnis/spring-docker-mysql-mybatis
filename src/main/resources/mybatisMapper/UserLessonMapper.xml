@@ -15,7 +15,7 @@
         SELECT * FROM UserLessons ul WHERE ul.user_id=#{userId};
     </select>
 
-    <select id="getUserLessonByEmail" resultMap="userLessonResult" parameterType="String">
+    <select id="getUserLessonsByEmail" resultMap="userLessonResult" parameterType="String">
         SELECT * FROM UserLessons ul
         INNER JOIN Users u ON u.id=ul.user_id
         WHERE u.email=#{email};

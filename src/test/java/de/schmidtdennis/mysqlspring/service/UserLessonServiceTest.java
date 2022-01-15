@@ -47,7 +47,7 @@ public class UserLessonServiceTest {
 
         // THEN
         Mockito.verify(userLessonMapper, Mockito.times(1)).getUserLessonsByUserId(id);
-        Mockito.verify(userLessonMapper, Mockito.times(0)).getUserLessonByEmail(ArgumentMatchers.any());
+        Mockito.verify(userLessonMapper, Mockito.times(0)).getUserLessonsByEmail(ArgumentMatchers.any());
         assertThat(userLessonResult).isNotNull();
         assertThat(userLessonResult.getCount()).isEqualTo(3);
         assertThat(userLessonResult.getData()).isEqualTo(threeUserLessons);
@@ -57,13 +57,13 @@ public class UserLessonServiceTest {
     public void should_getUserLessonByEmail_if_id_is_null_and_email_set() {
         // GIVEN
         String email = "email";
-        Mockito.when(userLessonMapper.getUserLessonByEmail(email)).thenReturn(threeUserLessons);
+        Mockito.when(userLessonMapper.getUserLessonsByEmail(email)).thenReturn(threeUserLessons);
 
         // WHEN
         UserLessonResult userLessonResult = testee.getUserLessons(null, email);
 
         // THEN
-        Mockito.verify(userLessonMapper, Mockito.times(1)).getUserLessonByEmail(email);
+        Mockito.verify(userLessonMapper, Mockito.times(1)).getUserLessonsByEmail(email);
         Mockito.verify(userLessonMapper, Mockito.times(0)).getUserLessonsByUserId(ArgumentMatchers.any());
         assertThat(userLessonResult).isNotNull();
         assertThat(userLessonResult.getCount()).isEqualTo(3);
@@ -82,7 +82,7 @@ public class UserLessonServiceTest {
 
         // THEN
         Mockito.verify(userLessonMapper, Mockito.times(1)).getUserLessonsByUserId(id);
-        Mockito.verify(userLessonMapper, Mockito.times(0)).getUserLessonByEmail(email);
+        Mockito.verify(userLessonMapper, Mockito.times(0)).getUserLessonsByEmail(email);
         assertThat(userLessonResult).isNotNull();
         assertThat(userLessonResult.getCount()).isEqualTo(3);
         assertThat(userLessonResult.getData()).isEqualTo(threeUserLessons);
@@ -97,7 +97,7 @@ public class UserLessonServiceTest {
 
         // THEN
         Mockito.verify(userLessonMapper, Mockito.times(0)).getUserLessonsByUserId(ArgumentMatchers.any());
-        Mockito.verify(userLessonMapper, Mockito.times(0)).getUserLessonByEmail(ArgumentMatchers.any());
+        Mockito.verify(userLessonMapper, Mockito.times(0)).getUserLessonsByEmail(ArgumentMatchers.any());
         assertThat(userLessonResult).isNull();
     }
 }

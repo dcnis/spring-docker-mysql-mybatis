@@ -4,7 +4,6 @@
 <mapper namespace = "de.schmidtdennis.mysqlspring.mapper.UserLessonMapper">
 
     <resultMap id="userLessonResult" type = "de.schmidtdennis.mysqlspring.model.UserLesson">
-        <result property = "id" column = "id"/>
         <result property = "liked" column = "liked"/>
         <result property = "lastSeen" column = "last_seen"/>
         <association property="user" column="user_id" javaType="de.schmidtdennis.mysqlspring.model.User" select="selectUser"/>
@@ -12,7 +11,7 @@
     </resultMap>
 
     <select id = "getUserLessonsByUserId" resultMap = "userLessonResult" parameterType="int">
-        SELECT * FROM UserLessons ul WHERE ul.user_id=#{userId};
+        SELECT * FROM UserLessons ul WHERE ul.user_id=#{userId} ORDER BY last_seen DESC;
     </select>
 
     <select id="getUserLessonsByEmail" resultMap="userLessonResult" parameterType="String">
@@ -50,4 +49,19 @@
     <select id="selectDifficulty" resultMap="difficultyResult" parameterType="int">
         SELECT * FROM Difficulties WHERE id=#{difficulty_id};
     </select>
+
+    <insert id="addUserLesson">
+        INSERT INTO UserLessons (user_id, lesson_id) VALUES (#{userId}, #{lessonId});
+    </insert>
+
+    <update id="updateUserLessonTimestamp">
+        UPDATE UserLessons set last_seen=now()
+        WHERE user_id=#{userId} AND lesson_id=#{lessonId};
+    </update>
+
+    <select id="getSpecificUserLesson" resultType="de.schmidtdennis.mysqlspring.model.UserLesson">
+        SELECT * FROM UserLessons WHERE user_id=#{userId} AND lesson_id=#{lessonId};
+    </select>
+
+
 </mapper>

@@ -32,11 +32,11 @@ CREATE TABLE Lessons (
 );
 
 CREATE TABLE UserLessons (
-    id INTEGER NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    user_id INTEGER NOT NULL,
-    lesson_id INTEGER NOT NULL,
+    user_id INT NOT NULL,
+    lesson_id INT NOT NULL,
     liked BOOLEAN DEFAULT FALSE,
     last_seen DATETIME DEFAULT CURRENT_TIMESTAMP,
+    PRIMARY KEY (user_id, lesson_id),
     FOREIGN KEY (user_id) REFERENCES Users(id),
     FOREIGN KEY (lesson_id) REFERENCES Lessons(id)
 );

@@ -10,6 +10,11 @@ public interface UserLessonMapper {
 
     List<UserLesson> getUserLessonsByUserId(Integer userId);
 
-    List<UserLesson> getUserLessonsByEmail(String userId);
+    List<UserLesson> getUserLessonsByEmail(String email);
 
+    int addUserLesson(Integer userId, Integer lessonId);
+
+    UserLesson getSpecificUserLesson(Integer userId, Integer lessonId);
+
+    int updateUserLessonTimestamp(Integer userId, Integer lessonId);
 }

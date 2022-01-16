@@ -1,11 +1,12 @@
 package de.schmidtdennis.mysqlspring.api;
 
+import de.schmidtdennis.mysqlspring.model.request.AddUserLesson;
 import de.schmidtdennis.mysqlspring.model.response.UserLessonResult;
 import de.schmidtdennis.mysqlspring.service.UserLessonService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
 
 
 @RestController
@@ -25,5 +26,10 @@ public class UserLessonController {
         if (userId == null && email == null) throw new IllegalArgumentException("userId und email fehlen");
 
         return userLessonService.getUserLessons(userId, email);
+    }
+
+    @PostMapping("userlessons/add")
+    public int addUserLesson(@RequestBody @Valid AddUserLesson request){
+        return userLessonService.addUserLesson(request);
     }
 }

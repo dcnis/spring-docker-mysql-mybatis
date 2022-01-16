@@ -7,4 +7,4 @@ RUN ["/usr/local/bin/mvn-entrypoint.sh", "mvn", "verify", "clean", "--fail-never
 ADD . $HOME
 RUN ["mvn", "package"]
 EXPOSE 8080 3307
-CMD ["java", "-jar", "./target/mysql-spring-0.0.7-SNAPSHOT.jar"]
+CMD ["java", "-Xdebug", "-Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=*:5005", "-jar", "./target/mysql-spring-0.0.7-SNAPSHOT.jar"]

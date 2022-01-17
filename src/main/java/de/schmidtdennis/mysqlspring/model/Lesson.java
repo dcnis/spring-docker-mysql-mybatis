@@ -1,11 +1,13 @@
 package de.schmidtdennis.mysqlspring.model;
 
 import lombok.Getter;
+import lombok.Setter;
 import org.springframework.data.redis.core.RedisHash;
 
 import java.io.Serializable;
 
 @Getter
+@Setter
 @RedisHash(value = "Lesson", timeToLive = 7200) // 2 hours
 public class Lesson implements Serializable {
 

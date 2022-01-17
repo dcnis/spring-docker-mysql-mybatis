@@ -121,4 +121,23 @@ class UserControllerTest {
         assertThat(exception.getMessage()).isEqualTo("Es muss mindestens ein Feld geupdated werden.");
     }
 
+    @Test
+    public void should_get_User(){
+        // GIVEN
+        User mockUser = new User(1, "first", "last", "email");
+        Integer userId = 1;
+        Mockito.when(userService.getUser(1, null)).thenReturn(mockUser);
+
+        // WHEN
+        User user = testee.getUser(userId, null);
+
+        // THEN
+        Mockito.verify(userService, Mockito.times(1)).getUser(1, null);
+        assertThat(user).isNotNull();
+        assertThat(user.getId()).isEqualTo(1);
+        assertThat(user.getFirstName()).isEqualTo("first");
+        assertThat(user.getLastName()).isEqualTo("last");
+        assertThat(user.getEmail()).isEqualTo("email");
+    }
+
 }

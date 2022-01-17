@@ -1,6 +1,7 @@
 package de.schmidtdennis.mysqlspring.api;
 
 import de.schmidtdennis.mysqlspring.model.UserLesson;
+import de.schmidtdennis.mysqlspring.model.request.AddUserLesson;
 import de.schmidtdennis.mysqlspring.model.response.UserLessonResult;
 import de.schmidtdennis.mysqlspring.service.UserLessonService;
 import org.junit.jupiter.api.Assertions;
@@ -102,5 +103,20 @@ class UserLessonControllerTest {
         assertThat(exception.getMessage()).isEqualTo("userId und email fehlen");
     }
 
+    @Test
+    public void should_add_UserLesson(){
+        // GIVEN
+        Integer userId = 1;
+        Integer lessonId = 3;
+        AddUserLesson request = new AddUserLesson(userId, lessonId);
+        Mockito.when(userLessonService.addUserLesson(request)).thenReturn(1);
+
+        // WHEN
+        int returnValue = testee.addUserLesson(request);
+
+        // THEN
+        Mockito.verify(userLessonService, Mockito.times(1)).addUserLesson(request);
+        assertThat(returnValue).isEqualTo(1);
+    }
 
 }

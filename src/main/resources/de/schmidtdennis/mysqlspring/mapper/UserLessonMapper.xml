@@ -17,7 +17,8 @@
     <select id="getUserLessonsByEmail" resultMap="userLessonResult" parameterType="String">
         SELECT * FROM UserLessons ul
         INNER JOIN Users u ON u.id=ul.user_id
-        WHERE u.email=#{email};
+        WHERE u.email=#{email}
+        ORDER BY last_seen DESC;
     </select>
 
     <resultMap id="userResult" type="de.schmidtdennis.mysqlspring.model.User">
@@ -59,7 +60,7 @@
         WHERE user_id=#{userId} AND lesson_id=#{lessonId};
     </update>
 
-    <select id="getSpecificUserLesson" resultType="de.schmidtdennis.mysqlspring.model.UserLesson">
+    <select id="getSpecificUserLesson" resultMap="userLessonResult">
         SELECT * FROM UserLessons WHERE user_id=#{userId} AND lesson_id=#{lessonId};
     </select>
 

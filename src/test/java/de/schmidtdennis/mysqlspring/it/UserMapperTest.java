@@ -46,11 +46,11 @@ public class UserMapperTest {
         List<User> users = userMapper.getAllUser();
 
         // THEN
-        assertThat(users.size()).isEqualTo(1);
-        assertThat(users.get(0).getId()).isEqualTo(1);
-        assertThat(users.get(0).getEmail()).isEqualTo("dennis.schmidt@mail.de");
-        assertThat(users.get(0).getFirstName()).isEqualTo("Dennis");
-        assertThat(users.get(0).getLastName()).isEqualTo("Schmidt");
+        assertThat(users.size()).isEqualTo(3);
+        assertThat(users.get(2).getId()).isEqualTo(3);
+        assertThat(users.get(2).getEmail()).isEqualTo("dennis.schmidt@mail.de");
+        assertThat(users.get(2).getFirstName()).isEqualTo("Dennis");
+        assertThat(users.get(2).getLastName()).isEqualTo("Schmidt");
     }
 
     @Test
@@ -59,10 +59,10 @@ public class UserMapperTest {
         userMapper.addUser("Dennis", "Schmidt", "dennis.schmidt@mail.de");
 
         // WHEN
-        userMapper.deleteUser(1);
+        userMapper.deleteUser(3);
 
         // THEN
-        assertThat(userMapper.getAllUser().size()).isEqualTo(0);
+        assertThat(userMapper.getAllUser().size()).isEqualTo(2);
     }
 
     @Test
@@ -72,11 +72,11 @@ public class UserMapperTest {
         userMapper.addUser("Dennis", "Schmidt", "dennis.schmidt@mail.de");
 
         // WHEN
-        User user = userMapper.getUserById(2);
+        User user = userMapper.getUserById(4);
 
         // THEN
         assertThat(user).isNotNull();
-        assertThat(user.getId()).isEqualTo(2);
+        assertThat(user.getId()).isEqualTo(4);
         assertThat(user.getFirstName()).isEqualTo("Dennis");
         assertThat(user.getLastName()).isEqualTo("Schmidt");
         assertThat(user.getEmail()).isEqualTo("dennis.schmidt@mail.de");
@@ -85,18 +85,16 @@ public class UserMapperTest {
     @Test
     public void should_getUserByEmail(){
         // GIVEN
-        userMapper.addUser("Antiqa", "Massito", "antiqa.mastio@mail.de");
-        userMapper.addUser("Dennis", "Schmidt", "dennis.schmidt@mail.de");
 
         // WHEN
-        User user = userMapper.getUserByEmail("dennis.schmidt@mail.de");
+        User user = userMapper.getUserByEmail("john.doe@mail.de");
 
         // THEN
         assertThat(user).isNotNull();
-        assertThat(user.getId()).isEqualTo(2);
-        assertThat(user.getFirstName()).isEqualTo("Dennis");
-        assertThat(user.getLastName()).isEqualTo("Schmidt");
-        assertThat(user.getEmail()).isEqualTo("dennis.schmidt@mail.de");
+        assertThat(user.getId()).isEqualTo(1);
+        assertThat(user.getFirstName()).isEqualTo("John");
+        assertThat(user.getLastName()).isEqualTo("Doe");
+        assertThat(user.getEmail()).isEqualTo("john.doe@mail.de");
     }
 
 

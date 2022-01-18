@@ -18,13 +18,19 @@ services:
     container_name: redis
     ports:
       - "6379:6379"
-  app:
+  app-backend:
     depends_on:
       - mysqldb
       - redis
-    container_name: spring_boot_app
+    container_name: app-backend
     build:
       dockerfile: Backend.Dockerfile
+    deploy:
+      restart_policy:
+        condition: on-failure
+        delay: 5s
+        max_attempts: 3
+        window: 120s
     ports:
       - "5005:5005"
       - "3000:3000"
@@ -43,3 +49,11 @@ services:
       - .m2:/root/.m2
     stdin_open: true
     tty: true
+  app-frontend:
+    depends_on:
+      - app-backend
+    container_name: app-frontend
+    build:
+      dockerfile: Frontend.Dockerfile
+    ports:
+      - "8080:8080"

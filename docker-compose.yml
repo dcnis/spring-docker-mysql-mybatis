@@ -24,10 +24,10 @@ services:
       - redis
     container_name: spring_boot_app
     build:
-      dockerfile: Dockerfile
+      dockerfile: Backend.Dockerfile
     ports:
       - "5005:5005"
-      - "8080:8080"
+      - "3000:3000"
     environment:
       SPRING_APPLICATION_JSON: '{
             "spring.datasource.url"  : "jdbc:mysql://mysqldb:3306/popup_chinese?useSSL=false&allowPublicKeyRetrieval=true",

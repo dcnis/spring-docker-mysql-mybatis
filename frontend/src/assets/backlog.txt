@@ -1,0 +1,19 @@
+This is the backlog of features. Here you will find potential features, that will be implemented in the future.
+
+
+FEATURE-REQUEST:
+- click on vocabulary to save to wordlist
+- Search lesson
+
+BUG:
+- What happens if lesson is not in userLessons
+- Create User in Backend
+
+
+DONE:
+- Get favorite userLessons
+- Make a custom login-page
+- In view 'Transcript' make it possible to show/hide pinyin, english.
+- Sort Favorites
+- save pinyin/translation checkbox in session
+- hide pinyin and translation at vocabulary

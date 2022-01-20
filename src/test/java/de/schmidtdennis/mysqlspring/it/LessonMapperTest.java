@@ -3,6 +3,7 @@ package de.schmidtdennis.mysqlspring.it;
 import de.schmidtdennis.mysqlspring.mapper.LessonMapper;
 import de.schmidtdennis.mysqlspring.model.Difficulty;
 import de.schmidtdennis.mysqlspring.model.Lesson;
+import de.schmidtdennis.mysqlspring.model.Vocabulary;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -46,6 +47,8 @@ public class LessonMapperTest {
         assertThat(lessons.get(0).getThumbnailUrl()).isEqualTo("thumbnailurl");
         assertThat(lessons.get(0).getAudioUrl()).isEqualTo("audiourl");
 
+        this.checkVocabularyOfLessonOne(lessons.get(0));
+
         assertThat(lessons.get(1).getTitle()).isEqualTo("10 signs you may have an asshole for a husband");
         assertThat(lessons.get(1).getDiscussion()).isEqualTo("Discussion for 10 signs you may have an asshole for a husband");
         assertThat(lessons.get(1).getDifficulty().getId()).isEqualTo(1);
@@ -55,6 +58,7 @@ public class LessonMapperTest {
         assertThat(lessons.get(2).getDiscussion()).isEqualTo("Discussion for The Public Security Alarm");
         assertThat(lessons.get(2).getDifficulty().getId()).isEqualTo(1);
         assertThat(lessons.get(2).getDifficulty().getDescription()).isEqualTo("Absolute Beginners");
+        this.checkVocabularyOfLessonThree(lessons.get(2));
 
         assertThat(lessons.get(3).getTitle()).isEqualTo("Shattered Dreams");
         assertThat(lessons.get(3).getDiscussion()).isEqualTo("Discussion for Shattered Dreams");
@@ -66,6 +70,7 @@ public class LessonMapperTest {
         assertThat(lessons.get(4).getDifficulty().getId()).isEqualTo(2);
         assertThat(lessons.get(4).getDifficulty().getDescription()).isEqualTo("Elementary");
     }
+
 
     @Test
     public void should_get_single_Lesson(){
@@ -82,6 +87,8 @@ public class LessonMapperTest {
         assertThat(lesson.getDifficulty().getDescription()).isEqualTo("Absolute Beginners");
         assertThat(lesson.getThumbnailUrl()).isEqualTo("thumbnailurl");
         assertThat(lesson.getAudioUrl()).isEqualTo("audiourl");
+
+        this.checkVocabularyOfLessonOne(lesson);
     }
 
     @ParameterizedTest
@@ -106,6 +113,62 @@ public class LessonMapperTest {
                 Arguments.of(3, "Intermediate"),
                 Arguments.of(4, "Advanced")
         );
+    }
+
+    private void checkVocabularyOfLessonOne(Lesson lesson) {
+        List<Vocabulary> vocabulary = lesson.getVocabulary();
+        assertThat(vocabulary.size()).isEqualTo(4);
+        assertThat(vocabulary.get(0).getLessonId()).isEqualTo(1);
+        assertThat(vocabulary.get(0).getPinyin()).isEqualTo("èrshíyī");
+        assertThat(vocabulary.get(0).getChinese()).isEqualTo("二十一");
+        assertThat(vocabulary.get(0).getEnglish()).isEqualTo("21");
+        assertThat(vocabulary.get(0).getVocabularyOrder()).isEqualTo(1);
+
+        assertThat(vocabulary.get(1).getLessonId()).isEqualTo(1);
+        assertThat(vocabulary.get(1).getPinyin()).isEqualTo("kuài");
+        assertThat(vocabulary.get(1).getChinese()).isEqualTo("块");
+        assertThat(vocabulary.get(1).getEnglish()).isEqualTo("(n.) piece");
+        assertThat(vocabulary.get(1).getVocabularyOrder()).isEqualTo(2);
+
+        assertThat(vocabulary.get(2).getLessonId()).isEqualTo(1);
+        assertThat(vocabulary.get(2).getPinyin()).isEqualTo("qián");
+        assertThat(vocabulary.get(2).getChinese()).isEqualTo("钱");
+        assertThat(vocabulary.get(2).getEnglish()).isEqualTo("(n.) money");
+        assertThat(vocabulary.get(2).getVocabularyOrder()).isEqualTo(3);
+
+        assertThat(vocabulary.get(3).getLessonId()).isEqualTo(1);
+        assertThat(vocabulary.get(3).getPinyin()).isEqualTo("Wǒ");
+        assertThat(vocabulary.get(3).getChinese()).isEqualTo("我");
+        assertThat(vocabulary.get(3).getEnglish()).isEqualTo("I");
+        assertThat(vocabulary.get(3).getVocabularyOrder()).isEqualTo(4);
+    }
+
+    private void checkVocabularyOfLessonThree(Lesson lesson) {
+        List<Vocabulary> vocabulary = lesson.getVocabulary();
+        assertThat(vocabulary.size()).isEqualTo(4);
+        assertThat(vocabulary.get(0).getLessonId()).isEqualTo(3);
+        assertThat(vocabulary.get(0).getPinyin()).isEqualTo("Tàitǎnníkè hào");
+        assertThat(vocabulary.get(0).getChinese()).isEqualTo("泰坦尼克号");
+        assertThat(vocabulary.get(0).getEnglish()).isEqualTo("(n.) Titanic");
+        assertThat(vocabulary.get(0).getVocabularyOrder()).isEqualTo(1);
+
+        assertThat(vocabulary.get(1).getLessonId()).isEqualTo(3);
+        assertThat(vocabulary.get(1).getPinyin()).isEqualTo("zánmen");
+        assertThat(vocabulary.get(1).getChinese()).isEqualTo("咱们");
+        assertThat(vocabulary.get(1).getEnglish()).isEqualTo("we");
+        assertThat(vocabulary.get(1).getVocabularyOrder()).isEqualTo(2);
+
+        assertThat(vocabulary.get(2).getLessonId()).isEqualTo(3);
+        assertThat(vocabulary.get(2).getPinyin()).isEqualTo("hǎishuǐ");
+        assertThat(vocabulary.get(2).getChinese()).isEqualTo("海水");
+        assertThat(vocabulary.get(2).getEnglish()).isEqualTo("(n.) seawater");
+        assertThat(vocabulary.get(2).getVocabularyOrder()).isEqualTo(3);
+
+        assertThat(vocabulary.get(3).getLessonId()).isEqualTo(3);
+        assertThat(vocabulary.get(3).getPinyin()).isEqualTo("bīngchuān");
+        assertThat(vocabulary.get(3).getChinese()).isEqualTo("冰川");
+        assertThat(vocabulary.get(3).getEnglish()).isEqualTo("(n.) glacier (colloquially iceberg as well");
+        assertThat(vocabulary.get(3).getVocabularyOrder()).isEqualTo(4);
     }
 
 }

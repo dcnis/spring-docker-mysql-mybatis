@@ -1,0 +1,39 @@
+<?xml version = "1.0" encoding = "UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace = "de.schmidtdennis.mysqlspring.mapper.LessonMapper">
+
+    <resultMap id="lessonResult" type = "de.schmidtdennis.mysqlspring.model.Lesson">
+        <result property = "id" column = "id"/>
+        <result property = "title" column = "title"/>
+        <result property = "discussion" column = "discussion"/>
+        <result property = "thumbnailUrl" column = "thumbnail_url"/>
+        <result property = "audioUrl" column = "audio_url"/>
+        <association property = "difficulty" column = "difficulty_id" javaType="de.schmidtdennis.mysqlspring.model.Difficulty" select="getDifficulty"/>
+        <collection property="vocabulary" ofType="de.schmidtdennis.mysqlspring.model.Vocabulary" javaType="java.util.ArrayList">
+            <id property="id" column="v_id"/>
+            <result property="lessonId" column="v_lesson_id"/>
+            <result property="pinyin" column="v_pinyin"/>
+            <result property="chinese" column="v_chinese"/>
+            <result property="english" column="v_english"/>
+            <result property="vocabularyOrder" column="v_vocabulary_order"/>
+        </collection>
+    </resultMap>
+
+    <select id = "getAllLessons" resultMap = "lessonResult">
+        SELECT l.*, v.id as v_id, v.lesson_id as v_lesson_id, v.pinyin as v_pinyin, v.chinese as v_chinese, v.english as v_english, v.vocabulary_order as v_vocabulary_order
+        FROM Lessons l LEFT OUTER JOIN Vocabularies v ON l.id=v.lesson_id;
+    </select>
+
+    <select id="getDifficulty" resultType="de.schmidtdennis.mysqlspring.model.Difficulty" parameterType="int">
+        SELECT * FROM Difficulties WHERE id=#{difficultyId};
+    </select>
+
+    <select id="getLesson" resultMap="lessonResult" parameterType="int">
+        SELECT l.*, v.id as v_id, v.lesson_id as v_lesson_id, v.pinyin as v_pinyin, v.chinese as v_chinese, v.english as v_english, v.vocabulary_order as v_vocabulary_order
+        FROM Lessons l LEFT OUTER JOIN Vocabularies v ON l.id=v.lesson_id
+        WHERE l.id=#{lessonId};
+    </select>
+
+</mapper>
+

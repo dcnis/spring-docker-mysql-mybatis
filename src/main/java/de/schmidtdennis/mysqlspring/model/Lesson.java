@@ -5,6 +5,7 @@ import lombok.Setter;
 import org.springframework.data.redis.core.RedisHash;
 
 import java.io.Serializable;
+import java.util.List;
 
 @Getter
 @Setter
@@ -17,5 +18,5 @@ public class Lesson implements Serializable {
     private Difficulty difficulty;
     private String thumbnailUrl;
     private String audioUrl;
-
+    private List<Vocabulary> vocabulary;
 }

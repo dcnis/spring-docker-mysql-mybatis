@@ -28,12 +28,12 @@ INSERT INTO UserLessons (user_id, lesson_id, last_seen) VALUES (1, 2, "2022-01-0
 INSERT INTO UserLessons (user_id, lesson_id, last_seen) VALUES (2, 1, "2021-04-11 10:10:10");
 INSERT INTO UserLessons (user_id, lesson_id, last_seen ) VALUES (3, 1, "2018-01-01 12:01:10");
 
-INSERT INTO Vocabularies (lesson_id, pinyin, chinese, english) VALUES (1, "èrshíyī", "二十一", "21");
-INSERT INTO Vocabularies (lesson_id, pinyin, chinese, english) VALUES (1, "kuài", "块", "(n.) piece");
-INSERT INTO Vocabularies (lesson_id, pinyin, chinese, english) VALUES (1, "qián", "钱", "(n.) money");
-INSERT INTO Vocabularies (lesson_id, pinyin, chinese, english) VALUES (1, "Wǒ", "我", "I");
+INSERT INTO Vocabularies (lesson_id, pinyin, chinese, english, vocabulary_order) VALUES (1, "èrshíyī", "二十一", "21", 1);
+INSERT INTO Vocabularies (lesson_id, pinyin, chinese, english, vocabulary_order) VALUES (1, "kuài", "块", "(n.) piece", 2);
+INSERT INTO Vocabularies (lesson_id, pinyin, chinese, english, vocabulary_order) VALUES (1, "qián", "钱", "(n.) money", 3);
+INSERT INTO Vocabularies (lesson_id, pinyin, chinese, english, vocabulary_order) VALUES (1, "Wǒ", "我", "I", 4);
 
-INSERT INTO Vocabularies (lesson_id, pinyin, chinese, english) VALUES (3, "Tàitǎnníkè hào", "泰坦尼克号", "(n.) Titanic");
-INSERT INTO Vocabularies (lesson_id, pinyin, chinese, english) VALUES (3, "zánmen", "咱们", "we");
-INSERT INTO Vocabularies (lesson_id, pinyin, chinese, english) VALUES (3, "hǎishuǐ", "海水", "(n.) seawater");
-INSERT INTO Vocabularies (lesson_id, pinyin, chinese, english) VALUES (3, "bīngchuān", "冰川", "(n.) glacier (colloquially iceberg as well");
+INSERT INTO Vocabularies (lesson_id, pinyin, chinese, english, vocabulary_order) VALUES (3, "Tàitǎnníkè hào", "泰坦尼克号", "(n.) Titanic", 1);
+INSERT INTO Vocabularies (lesson_id, pinyin, chinese, english, vocabulary_order) VALUES (3, "zánmen", "咱们", "we", 2);
+INSERT INTO Vocabularies (lesson_id, pinyin, chinese, english, vocabulary_order) VALUES (3, "hǎishuǐ", "海水", "(n.) seawater", 3);
+INSERT INTO Vocabularies (lesson_id, pinyin, chinese, english, vocabulary_order) VALUES (3, "bīngchuān", "冰川", "(n.) glacier (colloquially iceberg as well", 4);

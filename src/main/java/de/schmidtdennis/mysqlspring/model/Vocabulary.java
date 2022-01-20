@@ -10,6 +10,6 @@ public class Vocabulary {
     private String pinyin;
     private String chinese;
     private String english;
-    private Integer order;
+    private Integer vocabularyOrder;
 
 }

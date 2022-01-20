@@ -1,0 +1,21 @@
+<?xml version = "1.0" encoding = "UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace = "de.schmidtdennis.mysqlspring.mapper.VocabularyMapper">
+
+    <resultMap id="vocabularyResult" type = "de.schmidtdennis.mysqlspring.model.Vocabulary">
+        <result property = "id" column = "id"/>
+        <result property = "lessonId" column = "lesson_id"/>
+        <result property = "pinyin" column = "pinyin"/>
+        <result property = "chinese" column = "chinese"/>
+        <result property = "english" column = "english"/>
+        <result property = "vocabularyOrder" column = "vocabulary_order"/>
+    </resultMap>
+
+    <select id = "getVocabularyOfLesson" resultMap = "vocabularyResult">
+        SELECT * FROM Vocabularies v WHERE v.lesson_id=#{lessonId} ORDER BY v.vocabulary_order;
+    </select>
+
+
+</mapper>
+

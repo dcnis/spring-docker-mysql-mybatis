@@ -48,5 +48,14 @@ CREATE TABLE Addresses (
     FOREIGN KEY (address_type) REFERENCES AddressTypes(id)
 ) CHARACTER SET utf8 COLLATE utf8_unicode_ci;
 
+CREATE TABLE Vocabularies (
+    id INTEGER AUTO_INCREMENT PRIMARY KEY,
+    lesson_id INTEGER NOT NULL,
+    pinyin VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_sv_0900_ai_ci NOT NULL,
+    chinese VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_sv_0900_ai_ci NOT NULL,
+    english VARCHAR(255) NOT NULL,
+    vocabulary_order INTEGER NOT NULL,
+    FOREIGN KEY (lesson_id) REFERENCES Lessons(id)
+) CHARACTER SET utf8mb4 COLLATE utf8mb4_sv_0900_ai_ci;
 
 

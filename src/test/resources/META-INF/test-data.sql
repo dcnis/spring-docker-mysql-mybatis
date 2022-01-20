@@ -13,3 +13,14 @@ INSERT INTO Lessons (id, title, discussion, difficulty_id) VALUES (2, '10 signs 
 INSERT INTO Lessons (id, title, discussion, difficulty_id) VALUES (3, 'The Public Security Alarm', 'Discussion for The Public Security Alarm', 1);
 INSERT INTO Lessons (id, title, discussion, difficulty_id) VALUES (4, 'Shattered Dreams', 'Discussion for Shattered Dreams', 2);
 INSERT INTO Lessons (id, title, discussion, difficulty_id) VALUES (5, 'Travelling Light', 'Discussion for Travelling Light', 2);
+
+INSERT INTO Vocabularies (lesson_id, pinyin, chinese, english, vocabulary_order) VALUES (1, 'èrshíyī', '二十一', '21', 1);
+INSERT INTO Vocabularies (lesson_id, pinyin, chinese, english, vocabulary_order) VALUES (1, 'kuài', '块', '(n.) piece', 2);
+INSERT INTO Vocabularies (lesson_id, pinyin, chinese, english, vocabulary_order) VALUES (1, 'qián', '钱', '(n.) money', 3);
+INSERT INTO Vocabularies (lesson_id, pinyin, chinese, english, vocabulary_order) VALUES (1, 'Wǒ', '我', 'I', 4);
+
+INSERT INTO Vocabularies (lesson_id, pinyin, chinese, english, vocabulary_order) VALUES (3, 'Tàitǎnníkè hào', '泰坦尼克号', '(n.) Titanic', 1);
+INSERT INTO Vocabularies (lesson_id, pinyin, chinese, english, vocabulary_order) VALUES (3, 'zánmen', '咱们', 'we', 2);
+INSERT INTO Vocabularies (lesson_id, pinyin, chinese, english, vocabulary_order) VALUES (3, 'hǎishuǐ', '海水', '(n.) seawater', 3);
+INSERT INTO Vocabularies (lesson_id, pinyin, chinese, english, vocabulary_order) VALUES (3, 'bīngchuān', '冰川', '(n.) glacier (colloquially iceberg as well', 4);
+

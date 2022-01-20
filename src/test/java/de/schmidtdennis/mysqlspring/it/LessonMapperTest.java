@@ -171,4 +171,18 @@ public class LessonMapperTest {
         assertThat(vocabulary.get(3).getVocabularyOrder()).isEqualTo(4);
     }
 
+    @Test
+    public void get_lesson_by_difficulty(){
+        // GIVEN
+
+        // WHEN
+        List<Lesson> lessons = lessonMapper.getLessonByDifficulty(1);
+
+        // THEN
+        assertThat(lessons.size()).isEqualTo(3);
+        assertThat(lessons.get(0).getTitle()).isEqualTo("Let me do it, myself");
+        assertThat(lessons.get(1).getTitle()).isEqualTo("10 signs you may have an asshole for a husband");
+        assertThat(lessons.get(2).getTitle()).isEqualTo("The Public Security Alarm");
+    }
+
 }

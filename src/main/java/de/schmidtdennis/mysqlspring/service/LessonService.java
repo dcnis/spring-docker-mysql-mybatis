@@ -8,19 +8,21 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @Slf4j
 public class LessonService {
 
     private final LessonMapper lessonMapper;
+    private final RedisLessonRepository redisLessonRepository;
 
     @Autowired
-    public LessonService(LessonMapper lessonMapper){
+    public LessonService(LessonMapper lessonMapper, RedisLessonRepository redisLessonRepository){
         this.lessonMapper = lessonMapper;
+        this.redisLessonRepository = redisLessonRepository;
     }
 
-    @Autowired
-    private RedisLessonRepository redisLessonRepository;
 
     public Lesson getLesson(Integer lessonId){
 
@@ -40,5 +42,11 @@ public class LessonService {
         log.info("Save Lesson {} to REDIS", lessonId);
         redisLessonRepository.saveLesson(lessonFromDB);
         return lessonFromDB;
+    }
+
+    public List<Lesson> getLessonByDifficulty(Integer difficultyId) {
+
+        return lessonMapper.getLessonByDifficulty(difficultyId);
+
     }
 }

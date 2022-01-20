@@ -11,9 +11,12 @@ public interface LessonMapper {
 
     List<Lesson> getAllLessons();
 
+    List<Lesson> getLessonByDifficulty(Integer difficultyId);
+
     Lesson getLesson(Integer lessonId);
 
     Difficulty getDifficulty(Integer difficultyId);
+
 }
 
 

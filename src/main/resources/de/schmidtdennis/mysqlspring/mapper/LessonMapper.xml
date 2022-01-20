@@ -35,5 +35,10 @@
         WHERE l.id=#{lessonId};
     </select>
 
+    <select id="getLessonByDifficulty" resultMap="lessonResult" parameterType="int">
+        SELECT * FROM Lessons l INNER JOIN Difficulties d ON l.difficulty_id=d.id
+        WHERE d.id=#{difficultyId};
+    </select>
+
 </mapper>
 

@@ -32,7 +32,7 @@ public class LessonControllerTest {
         // GIVEN
 
         // WHEN
-        testee.getAllLessons();
+        testee.getAllLessons(null);
 
         // THEN
         Mockito.verify(lessonMapper, Mockito.times(1)).getAllLessons();

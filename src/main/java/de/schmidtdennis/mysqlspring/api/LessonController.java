@@ -4,10 +4,7 @@ import de.schmidtdennis.mysqlspring.mapper.LessonMapper;
 import de.schmidtdennis.mysqlspring.model.Lesson;
 import de.schmidtdennis.mysqlspring.service.LessonService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -37,4 +34,13 @@ public class LessonController {
     public Lesson getLesson(@PathVariable("lessonId") Integer lessonId){
         return lessonService.getLesson(lessonId);
     }
+
+    @PostMapping("lesson/add")
+    public String addLesson(@RequestBody Lesson lesson){
+
+        // Add Lesson and update REDIS
+
+        return "lesson saved";
+    }
+
 }

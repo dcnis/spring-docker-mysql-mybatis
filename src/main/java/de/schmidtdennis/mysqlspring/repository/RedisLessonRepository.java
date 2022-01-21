@@ -6,6 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.HashOperations;
 import org.springframework.stereotype.Repository;
 
+import java.util.TreeMap;
+
+
 @Repository
 @Slf4j
 public class RedisLessonRepository {
@@ -27,11 +30,17 @@ public class RedisLessonRepository {
     }
 
     public Lesson findLesson(int lessonId){
+        System.out.println("hashoperations");
+
         return hashOperationsLesson.get(LESSON_PREFIX, lessonId);
     }
 
     public void deleteLesson(int lessonId){
         hashOperationsLesson.delete(LESSON_PREFIX, lessonId);
+    }
+
+    public TreeMap<Integer, Lesson> getAllSavedLessons(){
+        return new TreeMap<>(hashOperationsLesson.entries(LESSON_PREFIX));
     }
 
 }

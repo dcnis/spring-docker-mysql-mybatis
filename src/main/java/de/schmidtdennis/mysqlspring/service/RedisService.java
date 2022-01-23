@@ -59,7 +59,9 @@ public class RedisService {
         String allLessonsAsString =  listOps.get(RedisKeys.REDIS_ALL_LESSONS);
 
         try {
-            return objectMapper.readValue(allLessonsAsString, new TypeReference<>() {});
+            if(allLessonsAsString != null){
+                return objectMapper.readValue(allLessonsAsString, new TypeReference<>() {});
+            }
         } catch (JsonProcessingException e) {
             log.error("Fehler beim Parsen des allLessonString to ArrayList", e);
             e.printStackTrace();

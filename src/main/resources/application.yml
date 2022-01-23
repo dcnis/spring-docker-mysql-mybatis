@@ -15,3 +15,7 @@ spring:
 
 logging:
   config: file:logback-spring.xml
+
+springdoc:
+  swagger-ui:
+    path: /swagger-ui

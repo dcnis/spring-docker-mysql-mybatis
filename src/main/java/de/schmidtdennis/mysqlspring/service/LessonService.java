@@ -76,9 +76,18 @@ public class LessonService {
         }
     }
 
-    public void addLesson(Lesson lesson) {
+    public Integer addLesson(Lesson lesson) {
 
-        lessonMapper.addLesson(lesson);
+        Integer newLessonId = lessonMapper.addLesson(lesson);
 
+        List<Lesson> lessons = redisService.getAllLessons();
+
+        if(lessons != null){
+            lessons.add(lesson);
+            redisService.addAllLessons(lessons);
+            log.debug("Refreshed key {} with new lesson", RedisKeys.REDIS_ALL_LESSONS);
+        }
+
+        return newLessonId;
     }
 }

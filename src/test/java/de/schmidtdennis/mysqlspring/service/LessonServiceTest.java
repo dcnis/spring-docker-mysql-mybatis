@@ -1,6 +1,7 @@
 package de.schmidtdennis.mysqlspring.service;
 
 import de.schmidtdennis.mysqlspring.mapper.LessonMapper;
+import de.schmidtdennis.mysqlspring.model.Difficulty;
 import de.schmidtdennis.mysqlspring.model.Lesson;
 import de.schmidtdennis.mysqlspring.model.response.AllLessonsResponse;
 import de.schmidtdennis.mysqlspring.repository.RedisLessonRepository;
@@ -17,6 +18,9 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @ExtendWith(MockitoExtension.class)
 public class LessonServiceTest {
+
+    @Mock
+    private RedisService redisService;
 
     @Mock
     private RedisLessonRepository redisLessonRepository;
@@ -80,6 +84,24 @@ public class LessonServiceTest {
         assertThat(lesson.getTitle()).isEqualTo("From Zero to One");
         assertThat(lesson.getId()).isEqualTo(0);
     }
+
+    @Test
+    public void should_add_newLesson() {
+        // GIVEN
+        Lesson mockLesson = new Lesson();
+        mockLesson.setId(1);
+        mockLesson.setTitle("From Zero to One");
+        mockLesson.setDiscussion("From Zero to One Discussion");
+        mockLesson.setDifficulty(new Difficulty(1, "Easy"));
+
+
+        // WHEN
+        testee.addLesson(mockLesson);
+
+        // THEN
+
+    }
+
 
 
 }

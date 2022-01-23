@@ -1,6 +1,7 @@
 package de.schmidtdennis.mysqlspring.api;
 
 import de.schmidtdennis.mysqlspring.model.Lesson;
+import de.schmidtdennis.mysqlspring.model.response.AddLessonResponse;
 import de.schmidtdennis.mysqlspring.model.response.AllLessonsResponse;
 import de.schmidtdennis.mysqlspring.service.LessonService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,13 +35,9 @@ public class LessonController {
     }
 
     @PostMapping("lesson/add")
-    public String addLesson(@RequestBody @Valid Lesson lesson){
-
-        lessonService.addLesson(lesson);
-
-        // Add Lesson to key allLessons and specificDifficulty
-
-        return "lesson saved";
+    public AddLessonResponse addLesson(@RequestBody @Valid Lesson lesson){
+        Integer insertedRows = lessonService.addLesson(lesson);
+        return new AddLessonResponse(insertedRows, lesson.getId());
     }
 
 }

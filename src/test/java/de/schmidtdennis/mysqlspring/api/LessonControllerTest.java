@@ -3,6 +3,7 @@ package de.schmidtdennis.mysqlspring.api;
 import de.schmidtdennis.mysqlspring.mapper.LessonMapper;
 import de.schmidtdennis.mysqlspring.model.Difficulty;
 import de.schmidtdennis.mysqlspring.model.Lesson;
+import de.schmidtdennis.mysqlspring.model.response.AddLessonResponse;
 import de.schmidtdennis.mysqlspring.service.LessonService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -57,6 +58,26 @@ public class LessonControllerTest {
         assertThat(lesson.getDifficulty().getId()).isEqualTo(1);
         assertThat(lesson.getDifficulty().getDescription()).isEqualTo("Easy");
         assertThat(lesson.getTitle()).isEqualTo("The golden goose");
+    }
+
+    @Test
+    public void should_add_lesson(){
+        // GIVEN
+        Lesson mockLesson = new Lesson();
+        mockLesson.setId(2);
+        mockLesson.setDifficulty(new Difficulty(1, "Easy"));
+        mockLesson.setTitle("The golden goose");
+        mockLesson.setDiscussion("The golden goose Discussion");
+
+        Mockito.when(lessonService.addLesson(mockLesson)).thenReturn(1);
+
+        // WHEN
+        AddLessonResponse response = testee.addLesson(mockLesson);
+
+        // THEN
+        Mockito.verify(lessonService, Mockito.times(1)).addLesson(mockLesson);
+        assertThat(response.getInsertedRows()).isEqualTo(1);
+        assertThat(response.getLessonId()).isEqualTo(2);
     }
 
 }

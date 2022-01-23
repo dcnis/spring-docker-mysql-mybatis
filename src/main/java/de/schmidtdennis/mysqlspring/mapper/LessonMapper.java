@@ -17,7 +17,7 @@ public interface LessonMapper {
 
     Difficulty getDifficulty(Integer difficultyId);
 
-    void addLesson(Lesson lesson);
+    int addLesson(Lesson lesson);
 
 }
 

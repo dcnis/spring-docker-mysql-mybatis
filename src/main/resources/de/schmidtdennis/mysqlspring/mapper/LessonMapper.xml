@@ -40,5 +40,9 @@
         WHERE d.id=#{difficultyId};
     </select>
 
+    <insert id="addLesson" parameterType="de.schmidtdennis.mysqlspring.model.Lesson" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO Lessons (title, discussion, difficulty_id) VALUES (#{title}, #{discussion}, #{difficulty.id});
+    </insert>
+
 </mapper>
 

@@ -4,6 +4,7 @@ import de.schmidtdennis.mysqlspring.constants.RedisKeys;
 import de.schmidtdennis.mysqlspring.exceptions.LessonNotFoundException;
 import de.schmidtdennis.mysqlspring.mapper.LessonMapper;
 import de.schmidtdennis.mysqlspring.model.Lesson;
+import de.schmidtdennis.mysqlspring.model.response.AllLessonsResponse;
 import de.schmidtdennis.mysqlspring.repository.RedisLessonRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,27 +49,36 @@ public class LessonService {
         return lessonFromDB;
     }
 
-    public List<Lesson> getLessonByDifficulty(Integer difficultyId) {
+    public AllLessonsResponse getLessonByDifficulty(Integer difficultyId) {
 
-        return lessonMapper.getLessonByDifficulty(difficultyId);
-
+        List<Lesson> lessons =  lessonMapper.getLessonByDifficulty(difficultyId);
+        return new AllLessonsResponse(lessons.size(), lessons);
     }
 
-    public List<Lesson> getAllLessons() {
+    public AllLessonsResponse getAllLessons() {
+
+        List<Lesson> allLessons;
 
         if(!redisService.hasKey(RedisKeys.REDIS_ALL_LESSONS)){
             log.debug("Get allLessons from MySQL DB");
-            List<Lesson> lessons = lessonMapper.getAllLessons();
+            allLessons = lessonMapper.getAllLessons();
 
             log.debug("Save allLessons to REDIS");
-            redisService.addAllLessons(lessons);
+            redisService.addAllLessons(allLessons);
 
-            return lessons;
+            return new AllLessonsResponse(allLessons.size(), allLessons);
         } else {
             // return from REDIS
             log.debug("Return allLessons from REDIS");
-            return redisService.getAllLessons();
+            allLessons = redisService.getAllLessons();
+
+            return new AllLessonsResponse(allLessons.size(), allLessons);
         }
     }
 
+    public void addLesson(Lesson lesson) {
+
+        lessonMapper.addLesson(lesson);
+
+    }
 }

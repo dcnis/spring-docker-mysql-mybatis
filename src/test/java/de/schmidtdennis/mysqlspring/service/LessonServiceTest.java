@@ -2,6 +2,7 @@ package de.schmidtdennis.mysqlspring.service;
 
 import de.schmidtdennis.mysqlspring.mapper.LessonMapper;
 import de.schmidtdennis.mysqlspring.model.Lesson;
+import de.schmidtdennis.mysqlspring.model.response.AllLessonsResponse;
 import de.schmidtdennis.mysqlspring.repository.RedisLessonRepository;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -11,7 +12,6 @@ import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -34,11 +34,11 @@ public class LessonServiceTest {
         Mockito.when(lessonMapper.getLessonByDifficulty(difficultyId)).thenReturn(new ArrayList<>());
 
         // WHEN
-        List<Lesson> lessons = testee.getLessonByDifficulty(difficultyId);
+        AllLessonsResponse lessonsResponse = testee.getLessonByDifficulty(difficultyId);
 
         // THEN
         Mockito.verify(lessonMapper, Mockito.times(0)).getDifficulty(difficultyId);
-        assertThat(lessons).isNotNull();
+        assertThat(lessonsResponse).isNotNull();
     }
 
     @Test

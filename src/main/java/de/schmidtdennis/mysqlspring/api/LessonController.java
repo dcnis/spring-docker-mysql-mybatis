@@ -1,27 +1,25 @@
 package de.schmidtdennis.mysqlspring.api;
 
-import de.schmidtdennis.mysqlspring.mapper.LessonMapper;
 import de.schmidtdennis.mysqlspring.model.Lesson;
+import de.schmidtdennis.mysqlspring.model.response.AllLessonsResponse;
 import de.schmidtdennis.mysqlspring.service.LessonService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
+import javax.validation.Valid;
 
 @RestController
 public class LessonController {
 
-    private final LessonMapper lessonMapper;
     private final LessonService lessonService;
 
     @Autowired
-    public LessonController(LessonMapper lessonMapper, LessonService lessonService){
-        this.lessonMapper = lessonMapper;
+    public LessonController(LessonService lessonService){
         this.lessonService = lessonService;
     }
 
     @GetMapping("lesson/getAll")
-    public List<Lesson> getAllLessons(@RequestParam(value = "difficulty", required = false) Integer difficultyId){
+    public AllLessonsResponse getAllLessons(@RequestParam(value = "difficulty", required = false) Integer difficultyId){
 
         if(difficultyId != null){
             return lessonService.getLessonByDifficulty(difficultyId);
@@ -36,7 +34,9 @@ public class LessonController {
     }
 
     @PostMapping("lesson/add")
-    public String addLesson(@RequestBody Lesson lesson){
+    public String addLesson(@RequestBody @Valid Lesson lesson){
+
+        lessonService.addLesson(lesson);
 
         // Add Lesson to key allLessons and specificDifficulty
 

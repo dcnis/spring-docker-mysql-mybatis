@@ -30,8 +30,6 @@ public class RedisLessonRepository {
     }
 
     public Lesson findLesson(int lessonId){
-        System.out.println("hashoperations");
-
         return hashOperationsLesson.get(LESSON_PREFIX, lessonId);
     }
 

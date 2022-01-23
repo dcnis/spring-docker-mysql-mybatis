@@ -35,7 +35,7 @@ public class LessonControllerTest {
         testee.getAllLessons(null);
 
         // THEN
-        Mockito.verify(lessonMapper, Mockito.times(1)).getAllLessons();
+        Mockito.verify(lessonService, Mockito.times(1)).getAllLessons();
     }
 
     @Test

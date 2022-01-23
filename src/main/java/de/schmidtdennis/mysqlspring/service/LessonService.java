@@ -1,5 +1,6 @@
 package de.schmidtdennis.mysqlspring.service;
 
+import de.schmidtdennis.mysqlspring.constants.RedisKeys;
 import de.schmidtdennis.mysqlspring.exceptions.LessonNotFoundException;
 import de.schmidtdennis.mysqlspring.mapper.LessonMapper;
 import de.schmidtdennis.mysqlspring.model.Lesson;
@@ -16,11 +17,14 @@ public class LessonService {
 
     private final LessonMapper lessonMapper;
     private final RedisLessonRepository redisLessonRepository;
+    private final RedisService redisService;
+
 
     @Autowired
-    public LessonService(LessonMapper lessonMapper, RedisLessonRepository redisLessonRepository){
+    public LessonService(LessonMapper lessonMapper, RedisLessonRepository redisLessonRepository, RedisService redisService){
         this.lessonMapper = lessonMapper;
         this.redisLessonRepository = redisLessonRepository;
+        this.redisService = redisService;
     }
 
 
@@ -49,4 +53,22 @@ public class LessonService {
         return lessonMapper.getLessonByDifficulty(difficultyId);
 
     }
+
+    public List<Lesson> getAllLessons() {
+
+        if(!redisService.hasKey(RedisKeys.REDIS_ALL_LESSONS)){
+            log.debug("Get allLessons from MySQL DB");
+            List<Lesson> lessons = lessonMapper.getAllLessons();
+
+            log.debug("Save allLessons to REDIS");
+            redisService.addAllLessons(lessons);
+
+            return lessons;
+        } else {
+            // return from REDIS
+            log.debug("Return allLessons from REDIS");
+            return redisService.getAllLessons();
+        }
+    }
+
 }

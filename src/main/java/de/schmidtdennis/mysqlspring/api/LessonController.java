@@ -27,7 +27,7 @@ public class LessonController {
             return lessonService.getLessonByDifficulty(difficultyId);
         }
 
-        return lessonMapper.getAllLessons();
+        return lessonService.getAllLessons();
     }
 
     @GetMapping("lesson/{lessonId}")
@@ -38,7 +38,7 @@ public class LessonController {
     @PostMapping("lesson/add")
     public String addLesson(@RequestBody Lesson lesson){
 
-        // Add Lesson and update REDIS
+        // Add Lesson to key allLessons and specificDifficulty
 
         return "lesson saved";
     }

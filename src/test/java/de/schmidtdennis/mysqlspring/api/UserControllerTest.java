@@ -108,7 +108,6 @@ class UserControllerTest {
     }
 
     @Test
-    @Disabled("wirft Fehler bei CodeCoverage")
     public void should_throw_exception_if_updateFields_are_missing(){
         // GIVEN
         User myUser = new User();

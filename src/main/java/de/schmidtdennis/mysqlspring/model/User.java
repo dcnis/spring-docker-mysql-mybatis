@@ -29,7 +29,7 @@ public class User implements Serializable {
 
     public boolean atLeastOneFieldToBeUpdated() throws IllegalAccessException {
         for (Field field : getClass().getDeclaredFields())
-            if (!field.getName().equals("id") && field.get(this) != null)
+            if (!field.getName().equals("id") && field.get(this) != null && !field.isSynthetic())
                 return true;
         return false;
     }

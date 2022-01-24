@@ -16,6 +16,11 @@
         SELECT * FROM Vocabularies v WHERE v.lesson_id=#{lessonId} ORDER BY v.vocabulary_order;
     </select>
 
+    <insert id="addVocabulary">
+        INSERT INTO Vocabularies (lesson_id, pinyin, chinese, english, vocabulary_order)
+        VALUES (#{lessonId}, #{vocabulary.pinyin}, #{vocabulary.chinese}, #{vocabulary.english}, #{newVocabularyOrderNumber});
+    </insert>
+
 
 </mapper>
 

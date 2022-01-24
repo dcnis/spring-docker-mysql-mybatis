@@ -4,6 +4,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import de.schmidtdennis.mysqlspring.constants.RedisKeys;
+import de.schmidtdennis.mysqlspring.mapper.LessonMapper;
 import de.schmidtdennis.mysqlspring.model.Lesson;
 import de.schmidtdennis.mysqlspring.repository.RedisLessonRepository;
 import lombok.extern.slf4j.Slf4j;
@@ -20,6 +21,7 @@ import java.util.TreeMap;
 @Slf4j
 public class RedisService {
 
+    private final LessonMapper lessonMapper;
     private final RedisLessonRepository redisLessonRepository;
     private final RedisTemplate<String, Object> redisTemplate;
     private final ObjectMapper objectMapper;
@@ -27,10 +29,12 @@ public class RedisService {
     @Resource(name="redisTemplate")
     private ValueOperations<String, String> listOps;
 
-    public RedisService(RedisLessonRepository redisLessonRepository, RedisTemplate<String, Object> redisTemplate, ObjectMapper objectMapper){
+    public RedisService(RedisLessonRepository redisLessonRepository, RedisTemplate<String, Object> redisTemplate,
+                        ObjectMapper objectMapper, LessonMapper lessonMapper){
         this.redisLessonRepository = redisLessonRepository;
         this.redisTemplate = redisTemplate;
         this.objectMapper = objectMapper;
+        this.lessonMapper = lessonMapper;
     }
 
     public TreeMap<Integer, Lesson> getAllSavedLessons() {
@@ -50,8 +54,6 @@ public class RedisService {
             log.error("Fehler beim Parsen von allLessons as String", e);
             e.printStackTrace();
         }
-
-
     }
 
     public List<Lesson> getAllLessons(){
@@ -72,6 +74,14 @@ public class RedisService {
 
     public Boolean hasKey(String key){
         return redisTemplate.hasKey(key);
+    }
+
+    public void refreshAllLessons(){
+        List<Lesson> allLessons = lessonMapper.getAllLessons();
+
+        if(allLessons != null && !allLessons.isEmpty()){
+            this.addAllLessons(allLessons);
+        }
     }
 
 }

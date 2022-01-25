@@ -26,6 +26,8 @@ public class Vocabulary implements Serializable {
     @NotNull
     private String english;
 
+    private String sentence;
+
     private Integer vocabularyOrder;
 
     public Vocabulary(Integer lessonId, String pinyin, String chinese, String english){

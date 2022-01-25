@@ -9,9 +9,12 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.connection.RedisStandaloneConfiguration;
 import org.springframework.data.redis.connection.jedis.JedisConnectionFactory;
 import org.springframework.data.redis.core.HashOperations;
+import org.springframework.data.redis.core.RedisOperations;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.data.redis.serializer.GenericJackson2JsonRedisSerializer;
 import org.springframework.data.redis.serializer.StringRedisSerializer;
+
 
 
 @Configuration
@@ -50,6 +53,11 @@ public class RedisConfig {
     @Bean
     public HashOperations<String, Integer, Lesson> hashOperationsLesson(RedisTemplate<String, Object> redisTemplate){
         return redisTemplate.opsForHash();
+    }
+
+    @Bean
+    public ValueOperations<String, String> listOps(RedisOperations<String, String> redisTemplate){
+        return redisTemplate.opsForValue();
     }
 
 

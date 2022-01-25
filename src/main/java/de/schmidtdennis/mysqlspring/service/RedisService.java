@@ -11,8 +11,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.stereotype.Service;
-
-import javax.annotation.Resource;
 import java.util.List;
 import java.util.Set;
 import java.util.TreeMap;
@@ -25,16 +23,18 @@ public class RedisService {
     private final RedisLessonRepository redisLessonRepository;
     private final RedisTemplate<String, Object> redisTemplate;
     private final ObjectMapper objectMapper;
+    private final ValueOperations<String, String> listOps;
 
-    @Resource(name="redisTemplate")
-    private ValueOperations<String, String> listOps;
-
-    public RedisService(RedisLessonRepository redisLessonRepository, RedisTemplate<String, Object> redisTemplate,
-                        ObjectMapper objectMapper, LessonMapper lessonMapper){
+    public RedisService(RedisLessonRepository redisLessonRepository,
+                        RedisTemplate<String, Object> redisTemplate,
+                        ObjectMapper objectMapper,
+                        LessonMapper lessonMapper,
+                        ValueOperations<String, String> listOps){
         this.redisLessonRepository = redisLessonRepository;
         this.redisTemplate = redisTemplate;
         this.objectMapper = objectMapper;
         this.lessonMapper = lessonMapper;
+        this.listOps = listOps;
     }
 
     public TreeMap<Integer, Lesson> getAllSavedLessons() {

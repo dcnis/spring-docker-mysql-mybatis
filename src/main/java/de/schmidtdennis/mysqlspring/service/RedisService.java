@@ -5,12 +5,17 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import de.schmidtdennis.mysqlspring.constants.RedisKeys;
 import de.schmidtdennis.mysqlspring.mapper.LessonMapper;
+import de.schmidtdennis.mysqlspring.model.AudioFile;
 import de.schmidtdennis.mysqlspring.model.Lesson;
+import de.schmidtdennis.mysqlspring.repository.RedisAudioRepository;
 import de.schmidtdennis.mysqlspring.repository.RedisLessonRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.IOException;
 import java.util.List;
 import java.util.Set;
 import java.util.TreeMap;
@@ -24,17 +29,20 @@ public class RedisService {
     private final RedisTemplate<String, Object> redisTemplate;
     private final ObjectMapper objectMapper;
     private final ValueOperations<String, String> listOps;
+    private final RedisAudioRepository redisAudioRepository;
 
     public RedisService(RedisLessonRepository redisLessonRepository,
                         RedisTemplate<String, Object> redisTemplate,
                         ObjectMapper objectMapper,
                         LessonMapper lessonMapper,
-                        ValueOperations<String, String> listOps){
+                        ValueOperations<String, String> listOps,
+                        RedisAudioRepository redisAudioRepository){
         this.redisLessonRepository = redisLessonRepository;
         this.redisTemplate = redisTemplate;
         this.objectMapper = objectMapper;
         this.lessonMapper = lessonMapper;
         this.listOps = listOps;
+        this.redisAudioRepository = redisAudioRepository;
     }
 
     public TreeMap<Integer, Lesson> getAllSavedLessons() {
@@ -49,7 +57,7 @@ public class RedisService {
 
         try {
             String lessonsAsString = objectMapper.writeValueAsString(allLessons);
-            listOps.set(RedisKeys.REDIS_ALL_LESSONS, lessonsAsString);
+            listOps.set(RedisKeys.REDIS_KEY_ALL_LESSONS, lessonsAsString);
         } catch (JsonProcessingException e) {
             log.error("Fehler beim Parsen von allLessons as String", e);
             e.printStackTrace();
@@ -58,7 +66,7 @@ public class RedisService {
 
     public List<Lesson> getAllLessons(){
 
-        String allLessonsAsString =  listOps.get(RedisKeys.REDIS_ALL_LESSONS);
+        String allLessonsAsString =  listOps.get(RedisKeys.REDIS_KEY_ALL_LESSONS);
 
         try {
             if(allLessonsAsString != null){
@@ -100,4 +108,27 @@ public class RedisService {
         return 0;
     }
 
+    public void addAudio(Integer lessonId, MultipartFile file) {
+        AudioFile audioFile = new AudioFile();
+        audioFile.setLessonId(lessonId);
+        audioFile.setFilename(file.getOriginalFilename());
+
+        try {
+            audioFile.setData(file.getBytes());
+        } catch (IOException e) {
+            log.error("Could not read audioFile", e);
+            e.printStackTrace();
+        }
+
+        redisAudioRepository.saveAudio(audioFile);
+
+    }
+
+    public AudioFile getAudio(Integer lessonId) {
+        return redisAudioRepository.findAudio(lessonId);
+    }
+
+    public void deleteAudio(Integer lessonId) {
+        redisAudioRepository.deleteAudio(lessonId);
+    }
 }

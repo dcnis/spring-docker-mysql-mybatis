@@ -59,7 +59,7 @@ public class LessonService {
 
         List<Lesson> allLessons;
 
-        if(!redisService.hasKey(RedisKeys.REDIS_ALL_LESSONS)){
+        if(!redisService.hasKey(RedisKeys.REDIS_KEY_ALL_LESSONS)){
             log.debug("Get allLessons from MySQL DB");
             allLessons = lessonMapper.getAllLessons();
 
@@ -85,7 +85,7 @@ public class LessonService {
         if(lessons != null){
             lessons.add(lesson);
             redisService.addAllLessons(lessons);
-            log.debug("Refreshed key {} with new lesson", RedisKeys.REDIS_ALL_LESSONS);
+            log.debug("Refreshed key {} with new lesson", RedisKeys.REDIS_KEY_ALL_LESSONS);
         }
 
         return newLessonId;

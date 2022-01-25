@@ -1,5 +1,6 @@
 package de.schmidtdennis.mysqlspring.config;
 
+import de.schmidtdennis.mysqlspring.model.AudioFile;
 import de.schmidtdennis.mysqlspring.model.Lesson;
 import de.schmidtdennis.mysqlspring.model.User;
 import lombok.extern.slf4j.Slf4j;
@@ -58,6 +59,11 @@ public class RedisConfig {
     @Bean
     public ValueOperations<String, String> listOps(RedisOperations<String, String> redisTemplate){
         return redisTemplate.opsForValue();
+    }
+
+    @Bean
+    public HashOperations<String, Integer, AudioFile> hashOperationsAudiofile(RedisTemplate<String, Object> redisTemplate){
+        return redisTemplate.opsForHash();
     }
 
 

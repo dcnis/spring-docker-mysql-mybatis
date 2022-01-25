@@ -95,7 +95,7 @@ class RedisServiceTest {
 
         // THEN
         Mockito.verify(objectMapper, Mockito.times(1)).writeValueAsString(allLessons);
-        Mockito.verify(listOps, Mockito.times(1)).set(RedisKeys.REDIS_ALL_LESSONS, lessonsAsString);
+        Mockito.verify(listOps, Mockito.times(1)).set(RedisKeys.REDIS_KEY_ALL_LESSONS, lessonsAsString);
 
     }
 

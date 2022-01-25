@@ -40,7 +40,7 @@ public class VocabularyService {
         }
 
         redisService.refreshAllLessons();
-        // TODO refresh single Lesson in REDIS
+        redisService.updateSingleLessonIfNecessary(request.getLessonId());
 
         return insertedRows;
     }

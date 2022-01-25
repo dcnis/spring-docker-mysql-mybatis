@@ -84,4 +84,20 @@ public class RedisService {
         }
     }
 
+    public int updateSingleLessonIfNecessary(Integer lessonId){
+
+        Lesson lesson = redisLessonRepository.findLesson(lessonId);
+
+        if(lesson != null){
+
+            Lesson updatedLesson = lessonMapper.getLesson(lessonId);
+
+            log.info("Update lesson {} in Redis", lessonId);
+            redisLessonRepository.saveLesson(updatedLesson);
+            return 1;
+        }
+
+        return 0;
+    }
+
 }

@@ -10,6 +10,6 @@ public interface VocabularyMapper {
 
     List<Vocabulary> getVocabularyOfLesson(Integer lessonId);
 
-    int addVocabulary(int lessonId, Vocabulary vocabulary, int newVocabularyOrderNumber);
+    int addVocabulary(Integer lessonId, Vocabulary vocabulary, Integer newVocabularyOrderNumber);
 
 }

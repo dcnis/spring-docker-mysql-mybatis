@@ -54,6 +54,7 @@ CREATE TABLE Vocabularies (
     pinyin VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_sv_0900_ai_ci NOT NULL,
     chinese VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_sv_0900_ai_ci NOT NULL,
     english VARCHAR(255) NOT NULL,
+    sentence VARCHAR(255),
     vocabulary_order INTEGER NOT NULL,
     FOREIGN KEY (lesson_id) REFERENCES Lessons(id)
 ) CHARACTER SET utf8mb4 COLLATE utf8mb4_sv_0900_ai_ci;

@@ -8,6 +8,8 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.io.IOException;
+
 @ExtendWith(MockitoExtension.class)
 class AudioControllerTest {
 
@@ -18,7 +20,7 @@ class AudioControllerTest {
     private AudioController testee;
 
     @Test
-    public void should_call_audioService_getAudio(){
+    public void should_call_audioService_getAudio() throws IOException {
         // GIVEN
         Integer lessonId = 1;
 

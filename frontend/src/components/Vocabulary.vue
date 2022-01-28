@@ -43,6 +43,7 @@
 import axios from 'axios';
 
 export default {
+  props: ['lesson'],
   data() {
     return {
       currentLesson: null,
@@ -68,12 +69,10 @@ export default {
     }
   },
   created() {
-    axios.get('https://heroku-popup-chinese-backend.herokuapp.com/getVocabularyByLessonId/' +
-          this.$route.params.id)
-      .then((response) => {
-        this.vocabulary = response.data;
-      })
-      .finally(() => (this.loading = false));
+    console.log("My lesson in Vocab");
+    console.log(this.lesson);
+    this.vocabulary = this.lesson.vocabulary;
+    this.loading = false;
   },
   mounted() {
     if (localStorage.hideVocabularyPinyin === 'true') {

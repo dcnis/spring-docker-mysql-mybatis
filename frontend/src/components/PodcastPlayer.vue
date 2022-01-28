@@ -51,10 +51,6 @@ export default {
     level: {
       type: String,
       default: null
-    },
-    thumbnail: {
-      type: String,
-      default: null
     }
   },
   data() {

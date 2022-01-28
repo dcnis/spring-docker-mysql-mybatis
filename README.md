@@ -42,5 +42,17 @@ docker exec -it redis redis-cli
 docker compose up --scale app-frontend=0
 ```
 
+### Explore specific docker container's filesystem
+```bash
+docker exec -it {containername} /bin/bash
+```
+
+### Bulk delete of docker containers by name
+```bash
+docker rmi $(docker images | grep 'imagename')
+```
+
+
+
 ## License
 [MIT](https://choosealicense.com/licenses/mit/)

@@ -2,6 +2,7 @@ package de.schmidtdennis.mysqlspring.service;
 
 import de.schmidtdennis.mysqlspring.mapper.UserMapper;
 import de.schmidtdennis.mysqlspring.model.User;
+import de.schmidtdennis.mysqlspring.model.response.AddUserResponse;
 import de.schmidtdennis.mysqlspring.repository.RedisUserRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.mybatis.dynamic.sql.SqlColumn;
@@ -35,6 +36,12 @@ public class UserService {
     private static final SqlColumn<String> firstName = users.column("first_name", JDBCType.VARCHAR);
     private static final SqlColumn<String> lastName = users.column("last_name", JDBCType.VARCHAR);
     private static final SqlColumn<String> email = users.column("email", JDBCType.VARCHAR);
+
+    public AddUserResponse addUser(User user){
+        Integer insertedRows = userMapper.addUser(user);
+        redisUserRepository.saveUser(user);
+        return new AddUserResponse(insertedRows, user.getId());
+    }
 
     public int updateUser(User user){
 

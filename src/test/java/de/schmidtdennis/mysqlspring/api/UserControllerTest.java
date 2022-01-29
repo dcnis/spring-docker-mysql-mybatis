@@ -2,10 +2,10 @@ package de.schmidtdennis.mysqlspring.api;
 
 import de.schmidtdennis.mysqlspring.mapper.UserMapper;
 import de.schmidtdennis.mysqlspring.model.User;
+import de.schmidtdennis.mysqlspring.model.response.AddUserResponse;
 import de.schmidtdennis.mysqlspring.repository.RedisUserRepository;
 import de.schmidtdennis.mysqlspring.service.UserService;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -97,14 +97,18 @@ class UserControllerTest {
     @Test
     public void should_test_addUser(){
         // GIVEN
-        User user = new User(1, "first", "last", "email");
+        User user = new User(20, "first", "last", "email");
+
+        Mockito.when(userService.addUser(user)).thenReturn(new AddUserResponse(1,20 ));
 
         // WHEN
-        String response = testee.addUser(user);
+        AddUserResponse response = testee.addUser(user);
 
         // THEN
-        Mockito.verify(userMapper, Mockito.times(1)).addUser(user.getFirstName(), user.getLastName(), user.getEmail());
-        assertThat(response).isEqualTo("saved");
+        Mockito.verify(userService, Mockito.times(1)).addUser(user);
+        assertThat(response).isNotNull();
+        assertThat(response.getInsertedRows()).isEqualTo(1);
+        assertThat(response.getUserId()).isEqualTo(20);
     }
 
     @Test

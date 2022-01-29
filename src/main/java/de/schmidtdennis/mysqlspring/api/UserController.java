@@ -2,6 +2,7 @@ package de.schmidtdennis.mysqlspring.api;
 
 import de.schmidtdennis.mysqlspring.mapper.UserMapper;
 import de.schmidtdennis.mysqlspring.model.User;
+import de.schmidtdennis.mysqlspring.model.response.AddUserResponse;
 import de.schmidtdennis.mysqlspring.repository.RedisUserRepository;
 import de.schmidtdennis.mysqlspring.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,10 +25,8 @@ public class UserController {
     }
 
     @PostMapping(value = "user/add")
-    public String addUser(@RequestBody User user) {
-        userMapper.addUser(user.getFirstName(), user.getLastName(), user.getEmail());
-        redisUserRepository.saveUser(user);
-        return "saved";
+    public AddUserResponse addUser(@RequestBody User user) {
+       return userService.addUser(user);
     }
 
     @GetMapping("user")

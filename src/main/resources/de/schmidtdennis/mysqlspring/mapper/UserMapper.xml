@@ -18,5 +18,9 @@
         DELETE FROM Users WHERE Users.id=#{userId};
     </delete>
 
+    <insert id="addUser" parameterType="de.schmidtdennis.mysqlspring.model.User" useGeneratedKeys="true" keyColumn="id" keyProperty="id">
+        INSERT into Users (first_name, last_name, email) VALUES (#{firstName}, #{lastName}, #{email})
+    </insert>
+
 </mapper>
 

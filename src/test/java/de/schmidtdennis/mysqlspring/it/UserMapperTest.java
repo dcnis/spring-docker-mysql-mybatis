@@ -40,7 +40,7 @@ public class UserMapperTest {
     @Test
     public void should_add_user(){
         // GIVEN
-        userMapper.addUser("Dennis", "Schmidt", "dennis.schmidt@mail.de");
+        userMapper.addUser(new User(3, "Dennis", "Schmidt", "dennis.schmidt@mail.de"));
 
         // WHEN
         List<User> users = userMapper.getAllUser();
@@ -56,7 +56,7 @@ public class UserMapperTest {
     @Test
     public void should_delete_user(){
         // GIVEN
-        userMapper.addUser("Dennis", "Schmidt", "dennis.schmidt@mail.de");
+        userMapper.addUser(new User(3, "Dennis", "Schmidt", "dennis.schmidt@mail.de"));
 
         // WHEN
         userMapper.deleteUser(3);
@@ -68,8 +68,8 @@ public class UserMapperTest {
     @Test
     public void should_getUserById(){
         // GIVEN
-        userMapper.addUser("Antiqa", "Massito", "antiqa.mastio@mail.de");
-        userMapper.addUser("Dennis", "Schmidt", "dennis.schmidt@mail.de");
+        Integer rowsInsertedOne = userMapper.addUser(new User(3, "Antiqa", "Massito", "antiqa.mastio@mail.de"));
+        Integer rowsInsertedTwo = userMapper.addUser(new User(4, "Dennis", "Schmidt", "dennis.schmidt@mail.de"));
 
         // WHEN
         User user = userMapper.getUserById(4);
@@ -80,6 +80,8 @@ public class UserMapperTest {
         assertThat(user.getFirstName()).isEqualTo("Dennis");
         assertThat(user.getLastName()).isEqualTo("Schmidt");
         assertThat(user.getEmail()).isEqualTo("dennis.schmidt@mail.de");
+        assertThat(rowsInsertedOne).isEqualTo(1);
+        assertThat(rowsInsertedTwo).isEqualTo(1);
     }
 
     @Test
@@ -101,8 +103,8 @@ public class UserMapperTest {
     @Test
     public void should_return_null_if_email_does_not_exist(){
         // GIVEN
-        userMapper.addUser("Antiqa", "Massito", "antiqa.mastio@mail.de");
-        userMapper.addUser("Dennis", "Schmidt", "dennis.schmidt@mail.de");
+        userMapper.addUser(new User(3, "Antiqa", "Massito", "antiqa.mastio@mail.de"));
+        userMapper.addUser(new User(4, "Dennis", "Schmidt", "dennis.schmidt@mail.de"));
 
         // WHEN
         User user = userMapper.getUserByEmail("doesnotexist@mail.de");
@@ -114,8 +116,8 @@ public class UserMapperTest {
     @Test
     public void should_return_null_if_id_does_not_exist(){
         // GIVEN
-        userMapper.addUser("Antiqa", "Massito", "antiqa.mastio@mail.de");
-        userMapper.addUser("Dennis", "Schmidt", "dennis.schmidt@mail.de");
+        userMapper.addUser(new User(3,"Antiqa", "Massito", "antiqa.mastio@mail.de"));
+        userMapper.addUser(new User(4,"Dennis", "Schmidt", "dennis.schmidt@mail.de"));
 
         // WHEN
         User user = userMapper.getUserById(100);
@@ -127,8 +129,8 @@ public class UserMapperTest {
     @Test
     public void should_update_user(){
         // GIVEN
-        userMapper.addUser("Antiqa", "Massito", "antiqa.mastio@mail.de");
-        userMapper.addUser("Dennis", "Schmidt", "dennis.schmidt@mail.de");
+        userMapper.addUser(new User(3,"Antiqa", "Massito", "antiqa.mastio@mail.de"));
+        userMapper.addUser(new User(4,"Dennis", "Schmidt", "dennis.schmidt@mail.de"));
 
         UpdateStatementProvider updateStatement = update(users)
                 .set(firstName).equalToWhenPresent("Dennis_Updated")

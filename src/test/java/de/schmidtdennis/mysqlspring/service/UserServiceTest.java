@@ -2,12 +2,15 @@ package de.schmidtdennis.mysqlspring.service;
 
 import de.schmidtdennis.mysqlspring.mapper.UserMapper;
 import de.schmidtdennis.mysqlspring.model.User;
+import de.schmidtdennis.mysqlspring.model.response.AddUserResponse;
 import de.schmidtdennis.mysqlspring.repository.RedisUserRepository;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.*;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.mybatis.dynamic.sql.update.render.UpdateStatementProvider;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 @ExtendWith(MockitoExtension.class)
 class UserServiceTest {
@@ -105,6 +108,25 @@ class UserServiceTest {
 
         // THEN
         Mockito.verify(redisUserRepository, Mockito.times(1)).updateUser(user);
+    }
+
+    @Test
+    public void should_add_User(){
+        // GIVEN
+        User user = new User(3, "Maxl", "Rainer", "maxl.rainer@gmx.de");
+
+        Mockito.when(userMapper.addUser(user)).thenReturn(1);
+
+        // WHEN
+        AddUserResponse response = testee.addUser(user);
+
+        // THEN
+        Mockito.verify(userMapper, Mockito.times(1)).addUser(user);
+        Mockito.verify(redisUserRepository, Mockito.times(1)).saveUser(user);
+        assertThat(response).isNotNull();
+        assertThat(response.getInsertedRows()).isEqualTo(1);
+        assertThat(response.getUserId()).isEqualTo(3);
+
     }
 
 }

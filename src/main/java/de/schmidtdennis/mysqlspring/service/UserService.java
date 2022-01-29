@@ -27,7 +27,7 @@ public class UserService {
     private final RedisUserRepository redisUserRepository;
 
     @Autowired
-    public UserService(UserMapper userMapper, RedisUserRepository redisUserRepository){
+    public UserService(UserMapper userMapper, RedisUserRepository redisUserRepository) {
         this.userMapper = userMapper;
         this.redisUserRepository = redisUserRepository;
     }
@@ -38,13 +38,13 @@ public class UserService {
     private static final SqlColumn<String> lastName = users.column("last_name", JDBCType.VARCHAR);
     private static final SqlColumn<String> email = users.column("email", JDBCType.VARCHAR);
 
-    public AddUserResponse addUser(User user){
+    public AddUserResponse addUser(User user) {
         Integer insertedRows = userMapper.addUser(user);
         redisUserRepository.saveUser(user);
         return new AddUserResponse(insertedRows, user.getId());
     }
 
-    public int updateUser(User user){
+    public int updateUser(User user) {
 
         UpdateStatementProvider updateStatement = update(users)
                 .set(firstName).equalToWhenPresent(user.getFirstName())
@@ -54,34 +54,26 @@ public class UserService {
                 .build()
                 .render(RenderingStrategies.MYBATIS3);
 
+        int rowsUpdated = userMapper.update(updateStatement);
+
         this.updateUserInRedis(user);
-        return userMapper.update(updateStatement);
+
+        return rowsUpdated;
     }
 
     private void updateUserInRedis(User user) {
         User redisUser = redisUserRepository.findUser(user.getId());
-        if(redisUser != null){
-
-            if(user.getFirstName() != null){
-                redisUser.setFirstName(user.getFirstName());
-            }
-            if(user.getLastName() != null){
-                redisUser.setLastName(user.getLastName());
-            }
-            if(user.getEmail() != null){
-                redisUser.setEmail(user.getEmail());
-            }
-
+        if (redisUser != null) {
+            redisUserRepository.updateUser(user);
             log.info("User in Redis geupdated");
-            redisUserRepository.updateUser(redisUser);
         }
     }
 
-    public User getUser(GetUserRequest request){
+    public User getUser(GetUserRequest request) {
 
-        if(request.getUserId() != null){
+        if (request.getUserId() != null) {
             User userFromRedis = redisUserRepository.findUser(request.getUserId());
-            if(userFromRedis != null){
+            if (userFromRedis != null) {
                 log.info("Return User {} from Redis", userFromRedis.getId());
                 return userFromRedis;
             } else {
@@ -90,18 +82,10 @@ public class UserService {
                 redisUserRepository.saveUser(user);
                 return user;
             }
-        } else if(request.getUserEmail() != null){
+        } else if (request.getUserEmail() != null) {
 
-            Integer userId = redisUserRepository.getUserIdByEmail(request.getUserEmail());
-
-            if(userId != null){
-                return redisUserRepository.findUser(userId);
-            } else {
-                log.info("Get User from MySQL Database by email");
-                User user = userMapper.getUserByEmail(request.getUserEmail());
-                redisUserRepository.saveUserEmail(user.getId(), request.getUserEmail());
-                return user;
-            }
+            log.info("Get User from MySQL Database by email");
+            return userMapper.getUserByEmail(request.getUserEmail());
         }
 
         return null;

@@ -66,6 +66,11 @@ public class RedisConfig {
         return redisTemplate.opsForHash();
     }
 
+    @Bean
+    public HashOperations<String, String, Integer> hashOperationsEmailToUserId(RedisTemplate<String, Object> redisTemplate){
+        return redisTemplate.opsForHash();
+    }
+
 
 
 }

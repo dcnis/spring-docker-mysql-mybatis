@@ -2,6 +2,7 @@ package de.schmidtdennis.mysqlspring.api;
 
 import de.schmidtdennis.mysqlspring.mapper.UserMapper;
 import de.schmidtdennis.mysqlspring.model.User;
+import de.schmidtdennis.mysqlspring.model.request.GetUserRequest;
 import de.schmidtdennis.mysqlspring.model.response.AddUserResponse;
 import de.schmidtdennis.mysqlspring.repository.RedisUserRepository;
 import de.schmidtdennis.mysqlspring.service.UserService;
@@ -129,13 +130,14 @@ class UserControllerTest {
         // GIVEN
         User mockUser = new User(1, "first", "last", "email");
         Integer userId = 1;
-        Mockito.when(userService.getUser(1, null)).thenReturn(mockUser);
+        GetUserRequest request = new GetUserRequest(userId, "email");
+        Mockito.when(userService.getUser(request)).thenReturn(mockUser);
 
         // WHEN
-        User user = testee.getUser(userId, null);
+        User user = testee.getUser(request);
 
         // THEN
-        Mockito.verify(userService, Mockito.times(1)).getUser(1, null);
+        Mockito.verify(userService, Mockito.times(1)).getUser(request);
         assertThat(user).isNotNull();
         assertThat(user.getId()).isEqualTo(1);
         assertThat(user.getFirstName()).isEqualTo("first");

@@ -2,6 +2,7 @@ package de.schmidtdennis.mysqlspring.api;
 
 import de.schmidtdennis.mysqlspring.mapper.UserMapper;
 import de.schmidtdennis.mysqlspring.model.User;
+import de.schmidtdennis.mysqlspring.model.request.GetUserRequest;
 import de.schmidtdennis.mysqlspring.model.response.AddUserResponse;
 import de.schmidtdennis.mysqlspring.repository.RedisUserRepository;
 import de.schmidtdennis.mysqlspring.service.UserService;
@@ -29,9 +30,9 @@ public class UserController {
        return userService.addUser(user);
     }
 
-    @GetMapping("user")
-    public User getUser(@RequestParam(value = "id", required = false) Integer id, @RequestParam(value = "email", required = false) String email){
-        return userService.getUser(id, email);
+    @PostMapping("user/get")
+    public User getUser(@RequestBody GetUserRequest request){
+        return userService.getUser(request);
     }
 
     @GetMapping("user/getAll")

@@ -2,6 +2,7 @@ package de.schmidtdennis.mysqlspring.service;
 
 import de.schmidtdennis.mysqlspring.mapper.UserMapper;
 import de.schmidtdennis.mysqlspring.model.User;
+import de.schmidtdennis.mysqlspring.model.request.GetUserRequest;
 import de.schmidtdennis.mysqlspring.model.response.AddUserResponse;
 import de.schmidtdennis.mysqlspring.repository.RedisUserRepository;
 import lombok.extern.slf4j.Slf4j;
@@ -76,29 +77,29 @@ public class UserService {
         }
     }
 
-    public User getUser(Integer id, String email){
+    public User getUser(GetUserRequest request){
 
-        if(id != null){
-            User userFromRedis = redisUserRepository.findUser(id);
+        if(request.getUserId() != null){
+            User userFromRedis = redisUserRepository.findUser(request.getUserId());
             if(userFromRedis != null){
                 log.info("Return User {} from Redis", userFromRedis.getId());
                 return userFromRedis;
             } else {
                 log.info("Get User from MySQL Database by id");
-                User user = userMapper.getUserById(id);
+                User user = userMapper.getUserById(request.getUserId());
                 redisUserRepository.saveUser(user);
                 return user;
             }
-        } else if(email != null){
+        } else if(request.getUserEmail() != null){
 
-            Integer userId = redisUserRepository.getUserIdByEmail(email);
+            Integer userId = redisUserRepository.getUserIdByEmail(request.getUserEmail());
 
             if(userId != null){
                 return redisUserRepository.findUser(userId);
             } else {
                 log.info("Get User from MySQL Database by email");
-                User user = userMapper.getUserByEmail(email);
-                redisUserRepository.saveUserEmail(user.getId(), email);
+                User user = userMapper.getUserByEmail(request.getUserEmail());
+                redisUserRepository.saveUserEmail(user.getId(), request.getUserEmail());
                 return user;
             }
         }

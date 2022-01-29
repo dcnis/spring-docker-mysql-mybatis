@@ -56,14 +56,13 @@ class VocabularyServiceTest {
         vocabularies.add(konggao);
         request.setVocabulary(vocabularies);
 
-        Mockito.when(vocabularyMapper.addVocabulary(ArgumentMatchers.any(), ArgumentMatchers.any(), ArgumentMatchers.any())).thenReturn(1);
+        Mockito.when(vocabularyMapper.addVocabulary(ArgumentMatchers.any(), ArgumentMatchers.any())).thenReturn(1);
 
         // WHEN
         int amountAddedVocabulary = testee.addVocabularyToLesson(request);
 
         // THEN
-        Mockito.verify(vocabularyMapper, Mockito.times(1)).getVocabularyOfLesson(2);
-        Mockito.verify(vocabularyMapper, Mockito.times(1)).addVocabulary(2, konggao, 1);
+        Mockito.verify(vocabularyMapper, Mockito.times(1)).addVocabulary(2, konggao);
         Mockito.verify(redisService, Mockito.times(1)).refreshAllLessons();
         Mockito.verify(redisService, Mockito.times(1)).updateSingleLessonIfNecessary(2);
         assertThat(amountAddedVocabulary).isEqualTo(1);
@@ -79,18 +78,13 @@ class VocabularyServiceTest {
         vocabularies.add(konggao);
         request.setVocabulary(vocabularies);
 
-        List<Vocabulary> alreadyExistingVocabulary = new ArrayList<>();
-        alreadyExistingVocabulary.add(null);
-        Mockito.when(vocabularyMapper.getVocabularyOfLesson(3)).thenReturn(alreadyExistingVocabulary);
-
-        Mockito.when(vocabularyMapper.addVocabulary(ArgumentMatchers.any(), ArgumentMatchers.any(), ArgumentMatchers.any())).thenReturn(1);
+        Mockito.when(vocabularyMapper.addVocabulary(ArgumentMatchers.any(), ArgumentMatchers.any())).thenReturn(1);
 
         // WHEN
         int amountAddedVocabulary = testee.addVocabularyToLesson(request);
 
         // THEN
-        Mockito.verify(vocabularyMapper, Mockito.times(1)).getVocabularyOfLesson(3);
-        Mockito.verify(vocabularyMapper, Mockito.times(1)).addVocabulary(3, konggao, 2);
+        Mockito.verify(vocabularyMapper, Mockito.times(1)).addVocabulary(3, konggao);
         Mockito.verify(redisService, Mockito.times(1)).refreshAllLessons();
         Mockito.verify(redisService, Mockito.times(1)).updateSingleLessonIfNecessary(3);
         assertThat(amountAddedVocabulary).isEqualTo(1);
@@ -108,20 +102,15 @@ class VocabularyServiceTest {
         vocabularies.add(taotai);
         request.setVocabulary(vocabularies);
 
-        List<Vocabulary> alreadyExistingVocabulary = new ArrayList<>();
-        alreadyExistingVocabulary.add(null);
-        Mockito.when(vocabularyMapper.getVocabularyOfLesson(3)).thenReturn(alreadyExistingVocabulary);
-
-        Mockito.when(vocabularyMapper.addVocabulary(ArgumentMatchers.any(), ArgumentMatchers.any(), ArgumentMatchers.any())).thenReturn(1);
+        Mockito.when(vocabularyMapper.addVocabulary(ArgumentMatchers.any(), ArgumentMatchers.any())).thenReturn(1);
 
         // WHEN
         int amountAddedVocabulary = testee.addVocabularyToLesson(request);
 
         // THEN
-        Mockito.verify(vocabularyMapper, Mockito.times(1)).getVocabularyOfLesson(3);
-        Mockito.verify(vocabularyMapper, Mockito.times(2)).addVocabulary(ArgumentMatchers.any(), ArgumentMatchers.any(), ArgumentMatchers.anyInt());
-        Mockito.verify(vocabularyMapper, Mockito.times(1)).addVocabulary(3, konggao, 2);
-        Mockito.verify(vocabularyMapper, Mockito.times(1)).addVocabulary(3, taotai, 3);
+        Mockito.verify(vocabularyMapper, Mockito.times(2)).addVocabulary(ArgumentMatchers.any(), ArgumentMatchers.any());
+        Mockito.verify(vocabularyMapper, Mockito.times(1)).addVocabulary(3, konggao);
+        Mockito.verify(vocabularyMapper, Mockito.times(1)).addVocabulary(3, taotai);
         Mockito.verify(redisService, Mockito.times(1)).refreshAllLessons();
         Mockito.verify(redisService, Mockito.times(1)).updateSingleLessonIfNecessary(3);
         assertThat(amountAddedVocabulary).isEqualTo(2);

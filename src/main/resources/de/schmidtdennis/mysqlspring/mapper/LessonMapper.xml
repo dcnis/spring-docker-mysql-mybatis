@@ -32,7 +32,8 @@
     <select id="getLesson" resultMap="lessonResult" parameterType="int">
         SELECT l.*, v.id as v_id, v.lesson_id as v_lesson_id, v.pinyin as v_pinyin, v.chinese as v_chinese, v.english as v_english, v.vocabulary_order as v_vocabulary_order
         FROM Lessons l LEFT OUTER JOIN Vocabularies v ON l.id=v.lesson_id
-        WHERE l.id=#{lessonId};
+        WHERE l.id=#{lessonId}
+        ORDER BY vocabulary_order;
     </select>
 
     <select id="getLessonByDifficulty" resultMap="lessonResult" parameterType="int">

@@ -23,20 +23,9 @@ public class VocabularyService {
     }
 
     public int addVocabularyToLesson(AddVocabulary request) {
-        List<Vocabulary> vocabularyOfLesson = vocabularyMapper.getVocabularyOfLesson(request.getLessonId());
-
-        int newVocabularyOrderNumber;
-
-        if (vocabularyOfLesson == null || vocabularyOfLesson.isEmpty()) {
-            newVocabularyOrderNumber = 1;
-        } else {
-            newVocabularyOrderNumber = vocabularyOfLesson.size() + 1;
-        }
-
         int insertedRows = 0;
         for (int i = 0; i < request.getVocabulary().size(); i++) {
-            insertedRows += vocabularyMapper.addVocabulary(request.getLessonId(), request.getVocabulary().get(i), newVocabularyOrderNumber);
-            newVocabularyOrderNumber++;
+            insertedRows += vocabularyMapper.addVocabulary(request.getLessonId(), request.getVocabulary().get(i));
         }
 
         redisService.refreshAllLessons();

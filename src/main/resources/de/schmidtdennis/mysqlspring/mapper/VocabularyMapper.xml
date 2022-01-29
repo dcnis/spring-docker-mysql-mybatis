@@ -18,7 +18,7 @@
 
     <insert id="addVocabulary">
         INSERT INTO Vocabularies (lesson_id, pinyin, chinese, english, vocabulary_order)
-        VALUES (#{lessonId}, #{vocabulary.pinyin}, #{vocabulary.chinese}, #{vocabulary.english}, #{newVocabularyOrderNumber});
+        VALUES (#{lessonId}, #{vocabulary.pinyin}, #{vocabulary.chinese}, #{vocabulary.english}, #{vocabulary.vocabularyOrder});
     </insert>
 
 

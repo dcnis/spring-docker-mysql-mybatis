@@ -1,5 +1,6 @@
 package de.schmidtdennis.mysqlspring.api;
 
+import de.schmidtdennis.mysqlspring.model.response.ImportUserResponse;
 import de.schmidtdennis.mysqlspring.service.SampleDataImportService;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -15,8 +16,8 @@ public class SampleDataController {
     }
 
     @PostMapping("sampledata/import/user/{amountOfUsersToBeImported}")
-    public void insertUser(@PathVariable("amountOfUsersToBeImported") Integer amountOfUsersToBeImported){
-            sampleDataImportService.importUser(amountOfUsersToBeImported);
+    public ImportUserResponse insertUser(@PathVariable("amountOfUsersToBeImported") Integer amountOfUsersToBeImported){
+            return sampleDataImportService.importUser(amountOfUsersToBeImported);
     }
 
 

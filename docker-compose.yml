@@ -58,3 +58,5 @@ services:
       dockerfile: app-frontend.Dockerfile
     ports:
       - "8080:8080"
+    volumes:
+      - ./frontend/src:/app/src

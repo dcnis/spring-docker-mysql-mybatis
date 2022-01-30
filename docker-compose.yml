@@ -25,7 +25,7 @@ services:
       - redis
     container_name: app-backend
     build:
-      dockerfile: Backend.Dockerfile
+      dockerfile: app-backend.Dockerfile
     deploy:
       restart_policy:
         condition: on-failure
@@ -55,6 +55,6 @@ services:
       - app-backend
     container_name: app-frontend
     build:
-      dockerfile: Frontend.Dockerfile
+      dockerfile: app-frontend.Dockerfile
     ports:
       - "8080:8080"

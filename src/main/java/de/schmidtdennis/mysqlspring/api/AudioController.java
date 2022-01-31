@@ -39,7 +39,6 @@ public class AudioController {
         if(audio != null){
             InputStreamResource inputStreamResource = new InputStreamResource(new ByteArrayInputStream(audio.getData()));
             HttpHeaders headers = new HttpHeaders();
-            System.out.println("Content-Length: " + audio.getData().length);
             headers.setContentLength(audio.getData().length);
             headers.set("Content-Type", "audio/mpeg");
             return new ResponseEntity<>(inputStreamResource, headers, HttpStatus.OK);

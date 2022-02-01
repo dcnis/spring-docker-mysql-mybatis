@@ -26,4 +26,5 @@ public class Lesson implements Serializable {
     private String thumbnailUrl;
     private String audioUrl;
     private List<Vocabulary> vocabulary;
+    private List<Dialog> dialog;
 }

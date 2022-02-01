@@ -1,0 +1,22 @@
+<?xml version = "1.0" encoding = "UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace = "de.schmidtdennis.mysqlspring.mapper.DialogMapper">
+
+    <resultMap id="dialogResult" type = "de.schmidtdennis.mysqlspring.model.Dialog">
+        <result property = "id" column = "id"/>
+        <result property = "lessonId" column = "lesson_id"/>
+        <result property = "dialogOrder" column = "dialog_order"/>
+        <result property = "speaker" column = "speaker"/>
+        <result property = "pinyin" column = "pinyin"/>
+        <result property = "chinese" column = "chinese"/>
+        <result property = "english" column = "english"/>
+    </resultMap>
+
+    <select id = "getDialogOfLesson" resultMap = "dialogResult" parameterType="int">
+        SELECT * FROM Dialogs WHERE lesson_id=#{lessonId};
+    </select>
+
+
+</mapper>
+

@@ -28,10 +28,13 @@ public class RedisConfig {
     @Value("${spring.redis.port}")
     private Integer port;
 
+    @Value("${spring.redis.password}")
+    private String password;
 
     @Bean
     JedisConnectionFactory jedisConnectionFactory() {
         RedisStandaloneConfiguration redisStandaloneConfiguration = new RedisStandaloneConfiguration(host, port);
+        redisStandaloneConfiguration.setPassword(password);
         return new JedisConnectionFactory(redisStandaloneConfiguration);
     }
 
@@ -41,7 +44,6 @@ public class RedisConfig {
         template.setConnectionFactory(jedisConnectionFactory());
         template.setKeySerializer(new StringRedisSerializer());
         template.setValueSerializer(new StringRedisSerializer());
-
         template.setHashValueSerializer(new GenericJackson2JsonRedisSerializer());
         return template;
     }

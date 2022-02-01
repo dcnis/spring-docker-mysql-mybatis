@@ -6,8 +6,8 @@ services:
     container_name: mysql
     restart: unless-stopped
     environment:
-      - MYSQL_ROOT_PASSWORD=secret
-      - MYSQL_DATABASE=popup_chinese
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
     ports:
       - "3307:3306"
     volumes:
@@ -17,6 +17,7 @@ services:
   redis:
     image: "redis:alpine"
     container_name: redis
+    command: redis-server --requirepass ${REDIS_PASSWORD} #see .env file for environment variable ${REDIS_PASSWORD}
     ports:
       - "6379:6379"
   app-backend:
@@ -37,14 +38,12 @@ services:
       - "3000:3000"
     environment:
       SPRING_APPLICATION_JSON: '{
-            "spring.datasource.url"  : "jdbc:mysql://mysqldb:3306/popup_chinese?useSSL=false&allowPublicKeyRetrieval=true",
-            "spring.datasource.username" : "root",
-            "spring.datasource.password" : "secret",
+            "spring.datasource.url"  : "jdbc:mysql://mysqldb:3306/${MYSQL_DATABASE}?useSSL=false&allowPublicKeyRetrieval=true",
+            "spring.datasource.username" : "${MYSQL_USER}",
+            "spring.datasource.password" : "${MYSQL_ROOT_PASSWORD}",
             "spring.jpa.properties.hibernate.dialect" : "org.hibernate.dialect.MySQL5InnoDBDialect",
             "spring.datasource.driver-class-name" : "com.mysql.cj.jdbc.Driver",
-            "spring.jpa.hibernate.ddl-auto" : "update",
-            "spring.redis.host" : "redis",
-            "spring.redis.port" : "6379"
+            "spring.jpa.hibernate.ddl-auto" : "update"
           }'
     volumes:
       - .m2:/root/.m2

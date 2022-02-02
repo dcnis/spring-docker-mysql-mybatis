@@ -18,11 +18,26 @@
             <result property="english" column="v_english"/>
             <result property="vocabularyOrder" column="v_vocabulary_order"/>
         </collection>
+        <collection property="dialog" ofType="de.schmidtdennis.mysqlspring.model.Dialog" javaType="java.util.ArrayList">
+            <id property="id" column="d_id"/>
+            <result property="lessonId" column="d_lesson_id"/>
+            <result property="dialogOrder" column="d_dialog_order"/>
+            <result property="speaker" column="d_speaker"/>
+            <result property="pinyin" column="d_pinyin"/>
+            <result property="chinese" column="d_chinese"/>
+            <result property="english" column="d_english"/>
+        </collection>
     </resultMap>
 
     <select id = "getAllLessons" resultMap = "lessonResult">
-        SELECT l.*, v.id as v_id, v.lesson_id as v_lesson_id, v.pinyin as v_pinyin, v.chinese as v_chinese, v.english as v_english, v.vocabulary_order as v_vocabulary_order
-        FROM Lessons l LEFT OUTER JOIN Vocabularies v ON l.id=v.lesson_id;
+        SELECT
+            l.*,
+            v.id as v_id, v.lesson_id as v_lesson_id, v.pinyin as v_pinyin, v.chinese as v_chinese, v.english as v_english, v.vocabulary_order as v_vocabulary_order,
+            d.id as d_id, d.lesson_id as d_lesson_id, d.dialog_order as d_dialog_order, d.speaker as d_speaker, d.pinyin as d_pinyin, d.chinese as d_chinese, d.english as d_english
+        FROM Lessons l
+        LEFT OUTER JOIN Vocabularies v ON l.id=v.lesson_id
+        LEFT OUTER JOIN Dialogs d ON l.id=d.lesson_id
+        ORDER BY  l.id, v.vocabulary_order, d.dialog_order;
     </select>
 
     <select id="getDifficulty" resultType="de.schmidtdennis.mysqlspring.model.Difficulty" parameterType="int">
@@ -30,10 +45,15 @@
     </select>
 
     <select id="getLesson" resultMap="lessonResult" parameterType="int">
-        SELECT l.*, v.id as v_id, v.lesson_id as v_lesson_id, v.pinyin as v_pinyin, v.chinese as v_chinese, v.english as v_english, v.vocabulary_order as v_vocabulary_order
-        FROM Lessons l LEFT OUTER JOIN Vocabularies v ON l.id=v.lesson_id
+        SELECT
+            l.*,
+            v.id as v_id, v.lesson_id as v_lesson_id, v.pinyin as v_pinyin, v.chinese as v_chinese, v.english as v_english, v.vocabulary_order as v_vocabulary_order,
+            d.id as d_id, d.lesson_id as d_lesson_id, d.dialog_order as d_dialog_order, d.speaker as d_speaker, d.pinyin as d_pinyin, d.chinese as d_chinese, d.english as d_english
+        FROM Lessons l
+        LEFT OUTER JOIN Vocabularies v ON l.id=v.lesson_id
+        LEFT OUTER JOIN Dialogs d ON l.id=d.lesson_id
         WHERE l.id=#{lessonId}
-        ORDER BY vocabulary_order;
+        ORDER BY v.vocabulary_order, d.dialog_order;
     </select>
 
     <select id="getLessonByDifficulty" resultMap="lessonResult" parameterType="int">

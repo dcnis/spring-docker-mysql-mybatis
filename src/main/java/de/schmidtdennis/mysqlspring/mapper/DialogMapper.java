@@ -10,4 +10,6 @@ public interface DialogMapper {
 
     List<Dialog> getDialogOfLesson(Integer lessonId);
 
+    int addDialogToLesson(Dialog request);
+
 }

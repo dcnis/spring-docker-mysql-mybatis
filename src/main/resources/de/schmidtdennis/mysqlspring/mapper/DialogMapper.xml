@@ -14,8 +14,16 @@
     </resultMap>
 
     <select id = "getDialogOfLesson" resultMap = "dialogResult" parameterType="int">
-        SELECT * FROM Dialogs WHERE lesson_id=#{lessonId};
+        SELECT * FROM Dialogs WHERE lesson_id=#{lessonId}
+        ORDER BY dialog_order;
     </select>
+
+    <insert id="addDialogToLesson" parameterType="de.schmidtdennis.mysqlspring.model.Dialog">
+        INSERT INTO Dialogs (lesson_id, dialog_order, speaker, pinyin, chinese, english)
+        VALUES (#{lessonId}, #{dialogOrder}, #{speaker}, #{pinyin}, #{chinese}, #{english});
+    </insert>
+
+
 
 
 </mapper>

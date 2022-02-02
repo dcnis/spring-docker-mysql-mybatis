@@ -88,6 +88,35 @@ public class LessonMapperTest {
         assertThat(lesson.getThumbnailUrl()).isEqualTo("thumbnailurl");
         assertThat(lesson.getAudioUrl()).isEqualTo("audiourl");
 
+        assertThat(lesson.getDialog().size()).isEqualTo(4);
+        assertThat(lesson.getDialog().get(0).getLessonId()).isEqualTo(1);
+        assertThat(lesson.getDialog().get(0).getDialogOrder()).isEqualTo(1);
+        assertThat(lesson.getDialog().get(0).getSpeaker()).isEqualTo("安吉");
+        assertThat(lesson.getDialog().get(0).getPinyin()).isEqualTo("Nǐ hǎo");
+        assertThat(lesson.getDialog().get(0).getChinese()).isEqualTo("你好");
+        assertThat(lesson.getDialog().get(0).getEnglish()).isEqualTo("Hello!");
+
+        assertThat(lesson.getDialog().get(1).getLessonId()).isEqualTo(1);
+        assertThat(lesson.getDialog().get(1).getDialogOrder()).isEqualTo(2);
+        assertThat(lesson.getDialog().get(1).getSpeaker()).isEqualTo("孙硕");
+        assertThat(lesson.getDialog().get(1).getPinyin()).isEqualTo("Zhè shì shéi");
+        assertThat(lesson.getDialog().get(1).getChinese()).isEqualTo("这是谁");
+        assertThat(lesson.getDialog().get(1).getEnglish()).isEqualTo("Who is it?");
+
+        assertThat(lesson.getDialog().get(2).getLessonId()).isEqualTo(1);
+        assertThat(lesson.getDialog().get(2).getDialogOrder()).isEqualTo(3);
+        assertThat(lesson.getDialog().get(2).getSpeaker()).isEqualTo("安吉");
+        assertThat(lesson.getDialog().get(2).getPinyin()).isEqualTo("Nǐ lǎolao láile");
+        assertThat(lesson.getDialog().get(2).getChinese()).isEqualTo("你姥姥来了");
+        assertThat(lesson.getDialog().get(2).getEnglish()).isEqualTo("Your grandmom is it!");
+
+        assertThat(lesson.getDialog().get(3).getLessonId()).isEqualTo(1);
+        assertThat(lesson.getDialog().get(3).getDialogOrder()).isEqualTo(4);
+        assertThat(lesson.getDialog().get(3).getSpeaker()).isEqualTo("孙硕");
+        assertThat(lesson.getDialog().get(3).getPinyin()).isEqualTo("Tā mā de");
+        assertThat(lesson.getDialog().get(3).getChinese()).isEqualTo("他妈的");
+        assertThat(lesson.getDialog().get(3).getEnglish()).isEqualTo("Damn!");
+
         this.checkVocabularyOfLessonOne(lesson);
     }
 

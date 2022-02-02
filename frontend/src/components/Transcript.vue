@@ -1,66 +1,60 @@
 <template>
     <div>
-        <div v-if="loading">Loading..</div>
-        <div v-else>
-            <v-simple-table :light="false">
-                <template v-slot:default>
-                    <thead>
-                        <tr>
-                            <th class="text-left">Speaker</th>
-                            <th class="text-left">
-                                <span class="nobreak padding-right">
-                                    <input
-                                        type="checkbox"
-                                        id="checkboxPinyin"
-                                        v-model="hidePinyin"
-                                    />
-                                    <label for="checkboxPinyin">
-                                        hide pinyin</label
-                                    >
-                                </span>
-                                <span class="nobreak">
-                                    <input
-                                        type="checkbox"
-                                        id="checkboxTranslation"
-                                        v-model="hideTranslation"
-                                    />
-                                    <label for="checkboxTranslation">
-                                        hide translation</label
-                                    >
-                                </span>
-                            </th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr v-for="item in dialogs" :key="item.dialogId">
-                            <td>
-                                <span class="chineseFont speaker">{{
-                                    item.speaker
-                                }}</span>
-                            </td>
-                            <td>
-                                <span class="chineseFont dialogSize">
-                                    {{ item.chinese }}<br />
-                                </span>
-                                <span v-if="!hidePinyin">
-                                    {{ item.pinyin }}<br />
-                                </span>
-                                <span v-if="!hideTranslation">
-                                    {{ item.english }}<br />
-                                </span>
-                            </td>
-                        </tr>
-                    </tbody>
-                </template>
-            </v-simple-table>
-        </div>
+        <v-simple-table :light="false">
+            <template v-slot:default>
+                <thead>
+                    <tr>
+                        <th class="text-left">Speaker</th>
+                        <th class="text-left">
+                            <span class="nobreak padding-right">
+                                <input
+                                    type="checkbox"
+                                    id="checkboxPinyin"
+                                    v-model="hidePinyin"
+                                />
+                                <label for="checkboxPinyin"> hide pinyin</label>
+                            </span>
+                            <span class="nobreak">
+                                <input
+                                    type="checkbox"
+                                    id="checkboxTranslation"
+                                    v-model="hideTranslation"
+                                />
+                                <label for="checkboxTranslation">
+                                    hide translation</label
+                                >
+                            </span>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr v-for="item in dialogs" :key="item.dialogId">
+                        <td>
+                            <span class="chineseFont speaker">{{
+                                item.speaker
+                            }}</span>
+                        </td>
+                        <td>
+                            <span class="chineseFont dialogSize">
+                                {{ item.chinese }}<br />
+                            </span>
+                            <span v-if="!hidePinyin">
+                                {{ item.pinyin }}<br />
+                            </span>
+                            <span v-if="!hideTranslation">
+                                {{ item.english }}<br />
+                            </span>
+                        </td>
+                    </tr>
+                </tbody>
+            </template>
+        </v-simple-table>
     </div>
 </template>
 
 <script>
-import axios from "axios"
-
 export default {
+    props: ["lesson"],
     data() {
         return {
             loading: true,
@@ -88,15 +82,7 @@ export default {
         },
     },
     created() {
-        axios
-            .get(
-                "https://heroku-popup-chinese-backend.herokuapp.com/getDialogsByLessonId/" +
-                    this.$route.params.id
-            )
-            .then((response) => {
-                this.dialogs = response.data
-            })
-            .finally(() => (this.loading = false))
+        this.dialogs = this.lesson.dialog
     },
 }
 </script>

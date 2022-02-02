@@ -59,4 +59,13 @@ CREATE TABLE Vocabularies (
     FOREIGN KEY (lesson_id) REFERENCES Lessons(id)
 ) CHARACTER SET utf8mb4 COLLATE utf8mb4_sv_0900_ai_ci;
 
-
+CREATE TABLE Dialogs (
+    id INTEGER AUTO_INCREMENT PRIMARY KEY,
+    lesson_id INTEGER NOT NULL,
+    dialog_order INTEGER,
+    speaker VARCHAR(255) NOT NULL,
+    pinyin VARCHAR(255) NOT NULL,
+    chinese VARCHAR(255) NOT NULL,
+    english VARCHAR(255) NOT NULL,
+    FOREIGN KEY (lesson_id) REFERENCES Lessons(id)
+);

@@ -24,3 +24,7 @@ INSERT INTO Vocabularies (lesson_id, pinyin, chinese, english, vocabulary_order)
 INSERT INTO Vocabularies (lesson_id, pinyin, chinese, english, vocabulary_order) VALUES (3, 'hǎishuǐ', '海水', '(n.) seawater', 3);
 INSERT INTO Vocabularies (lesson_id, pinyin, chinese, english, vocabulary_order) VALUES (3, 'bīngchuān', '冰川', '(n.) glacier (colloquially iceberg as well', 4);
 
+INSERT INTO Dialogs (lesson_id, dialog_order, speaker, pinyin, chinese, english) VALUES (1, 1, '安吉', 'Nǐ hǎo', '你好', 'Hello!');
+INSERT INTO Dialogs (lesson_id, dialog_order, speaker, pinyin, chinese, english) VALUES (1, 2, '孙硕', 'Zhè shì shéi', '这是谁', 'Who is it?');
+INSERT INTO Dialogs (lesson_id, dialog_order, speaker, pinyin, chinese, english) VALUES (1, 3, '安吉', 'Nǐ lǎolao láile', '你姥姥来了', 'Your grandmom is it!');
+INSERT INTO Dialogs (lesson_id, dialog_order, speaker, pinyin, chinese, english) VALUES (1, 4, '孙硕', 'Tā mā de', '他妈的', 'Damn!');

@@ -120,14 +120,11 @@ const store = new Vuex.Store({
       context.commit('setUserData', response);
       store.dispatch('getLatestLessonsOfUser');
     },
-    async fetchLessonsByDiffculty(context, level) {
+    async fetchLessonsByDiffculty(context, difficultyId) {
       axios.defaults.headers.common.Authorization = `Bearer ${await Vue.prototype.$auth.getAccessToken()}`;
-      const searchedLevel = {
-        difficulty: level
-      };
-      axios.post(constants.url.FIND_LESSONS_BY_DIFFICULTY, searchedLevel)
-        .then(res => {
-          context.commit('setLessonsByDiffculty', res.data);
+      axios.get(constants.url.FIND_LESSONS_BY_DIFFICULTY + difficultyId)
+        .then(response => {
+          context.commit('setLessonsByDiffculty', response.data.data);
         });
     },
     async getLikedUserLessons(context) {

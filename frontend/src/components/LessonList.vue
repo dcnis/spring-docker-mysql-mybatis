@@ -4,7 +4,7 @@
       <template v-for="lesson in getLessons">
         <v-list-item :key="lesson.id" :to="'/lesson/' + lesson.id" v-on:click.native="updateLastSeen(lesson.id)">
           <v-list-item-avatar>
-            <img :src="lesson.thumbnail">
+            <img :src="lesson.thumbnailUrl">
           </v-list-item-avatar>
           <v-list-item-content>
             <v-list-item-title v-html="lesson.title"></v-list-item-title>

@@ -4,7 +4,7 @@
         <div v-else>
             <div class="removePadding">
                 <podcast-player
-                    :file="audio"
+                    :file="currentLesson.audioUrl"
                     :title="currentLesson.title"
                     :level="currentLesson.difficulty.description"
                 >
@@ -56,7 +56,6 @@ export default {
             currentLesson: {},
             userLesson: {},
             loading: true,
-            audio: "http://localhost:3000/audio/1",
         }
     },
     components: {
@@ -85,7 +84,6 @@ export default {
         async redirectLogin() {
             await this.$router.push({ path: "/login" })
         },
-        audioFinish() {},
         getLesson() {
             axios
                 .get(constants.url.GET_LESSON + this.id)

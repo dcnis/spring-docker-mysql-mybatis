@@ -93,7 +93,6 @@ export default {
         },
     },
     created() {
-        console.log(this.lesson)
         this.vocabulary = this.lesson.vocabulary
     },
     mounted() {

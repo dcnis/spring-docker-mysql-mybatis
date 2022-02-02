@@ -45,7 +45,7 @@ public class LessonMapperTest {
         assertThat(lessons.get(0).getDifficulty().getId()).isEqualTo(1);
         assertThat(lessons.get(0).getDifficulty().getDescription()).isEqualTo("Absolute Beginners");
         assertThat(lessons.get(0).getThumbnailUrl()).isEqualTo("thumbnailurl");
-        assertThat(lessons.get(0).getAudioUrl()).isEqualTo("audiourl");
+        assertThat(lessons.get(0).getAudioUrl()).isEqualTo("http://localhost:3000/audio/1");
 
         this.checkVocabularyOfLessonOne(lessons.get(0));
 
@@ -86,7 +86,7 @@ public class LessonMapperTest {
         assertThat(lesson.getDifficulty().getId()).isEqualTo(1);
         assertThat(lesson.getDifficulty().getDescription()).isEqualTo("Absolute Beginners");
         assertThat(lesson.getThumbnailUrl()).isEqualTo("thumbnailurl");
-        assertThat(lesson.getAudioUrl()).isEqualTo("audiourl");
+        assertThat(lesson.getAudioUrl()).isEqualTo("http://localhost:3000/audio/1");
 
         assertThat(lesson.getDialog().size()).isEqualTo(4);
         assertThat(lesson.getDialog().get(0).getLessonId()).isEqualTo(1);

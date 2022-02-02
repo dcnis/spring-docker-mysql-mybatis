@@ -8,10 +8,10 @@
                             <span class="nobreak">
                                 <input
                                     type="checkbox"
-                                    id="checkboxPinyin"
+                                    id="checkboxChinese"
                                     v-model="hideVocabularyChinese"
                                 />
-                                <label for="checkboxPinyin">
+                                <label for="checkboxChinese">
                                     hide chinese</label
                                 >
                             </span>

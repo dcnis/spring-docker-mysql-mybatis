@@ -88,7 +88,7 @@ class RedisServiceTest {
         lessonTwo.setTitle("Lesson Two");
         allLessons.add(lessonTwo);
 
-        String lessonsAsString = "[{\"id\":1,\"title\":\"Lesson One\",\"discussion\":null,\"difficulty\":{\"id\":1,\"description\":\"Easy\"},\"thumbnailUrl\":null,\"audioUrl\":null,\"vocabulary\":null},{\"id\":1,\"title\":\"Lesson Two\",\"discussion\":null,\"difficulty\":{\"id\":2,\"description\":\"OK\"},\"thumbnailUrl\":null,\"audioUrl\":null,\"vocabulary\":null}]";
+        String lessonsAsString = "[{\"id\":1,\"title\":\"Lesson One\",\"discussion\":null,\"difficulty\":{\"id\":1,\"description\":\"Easy\"},\"thumbnailUrl\":null,\"audioUrl\":null,\"vocabulary\":null,\"dialog\":null},{\"id\":1,\"title\":\"Lesson Two\",\"discussion\":null,\"difficulty\":{\"id\":2,\"description\":\"OK\"},\"thumbnailUrl\":null,\"audioUrl\":null,\"vocabulary\":null,\"dialog\":null}]";
 
         // WHEN
         testee.addAllLessons(allLessons);

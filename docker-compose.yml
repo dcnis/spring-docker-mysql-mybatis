@@ -13,6 +13,9 @@ services:
       DB_PASSWORD: ${MYSQL_ROOT_PASSWORD}
       DB_USER: ${MYSQL_USER}
       DB_VENDOR: mysql
+      KEYCLOAK_IMPORT: /tmp/realm-export.json
+    volumes:
+      - ./keycloak/realm-export.json:/tmp/realm-export.json
   mysqldb:
     image: mysql:8.0.27
     container_name: mysql

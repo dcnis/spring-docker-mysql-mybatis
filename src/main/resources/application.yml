@@ -24,3 +24,13 @@ logging:
 springdoc:
   swagger-ui:
     path: /swagger-ui
+
+
+keycloak:
+  realm: popupchinese
+  auth-server-url: http://keycloak:8080/auth #using "keycloak" container name.
+  ssl-required: external
+  resource: popupchineseapp
+  bearer-only: true
+  public-client: true
+  principal-attribute: preferred_username

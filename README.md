@@ -21,38 +21,5 @@ After downloading the source code you can run the application with a single comm
 docker compose up --build
 ```
 
-## Cheat Sheet
-A simple cheat sheet to remember some commands.
-
-### Acess MySQL-DB in docker container
-
-```bash
-docker exec -it mysql mysql -p
-secret
-```
-
-### Access Redis in docker container
-
-```bash
-docker exec -it redis redis-cli
-```
-
-### Run all docker containers except app-frontend
-```bash
-docker compose up --scale app-frontend=0
-```
-
-### Explore specific docker container's filesystem
-```bash
-docker exec -it {containername} /bin/bash
-```
-
-### Bulk delete of docker containers by name
-```bash
-docker rmi $(docker images | grep 'imagename')
-```
-
-
-
 ## License
 [MIT](https://choosealicense.com/licenses/mit/)

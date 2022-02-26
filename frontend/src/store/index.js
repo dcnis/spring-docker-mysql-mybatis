@@ -121,7 +121,6 @@ const store = new Vuex.Store({
       store.dispatch('getLatestLessonsOfUser');
     },
     async fetchLessonsByDiffculty(context, difficultyId) {
-      axios.defaults.headers.common.Authorization = `Bearer ${await Vue.prototype.$auth.getAccessToken()}`;
       axios.get(constants.url.FIND_LESSONS_BY_DIFFICULTY + difficultyId)
         .then(response => {
           context.commit('setLessonsByDiffculty', response.data.data);

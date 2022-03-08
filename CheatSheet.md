@@ -24,7 +24,7 @@ docker compose up --scale app-frontend=0
 docker exec -it {containername} /bin/bash
 ```
 
-### Bulk delete of docker containers by name
+### Bulk delete of docker images by name
 ```bash
 docker rmi $(docker images | grep '<none>')
 ```
@@ -37,4 +37,9 @@ docker exec -it keycloak curl -X POST 'http://keycloak:8080/auth/realms/popupchi
  --data-urlencode 'client_id=popupchineseapp' \
  --data-urlencode 'username=user1' \
  --data-urlencode 'password=user1'
+```
+
+### Find docker container's IP-address
+```
+docker inspect -f '{{range.NetworkSettings.Networks}}{{.IPAddress}}{{end}}' container_name_or_id
 ```
